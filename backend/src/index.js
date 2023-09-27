@@ -1,12 +1,15 @@
 import express from "express";
 import sql from "mssql";
+import { config } from "dotenv";
+config();
+
 const app = express();
 
 const sqlConfig = {
-  user: "admin",
-  password: "230300Ej",
-  database: "prueba",
-  server: "localhost",
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
+  server: process.env.SERVER,
   pool: {
     max: 10,
     min: 0,
@@ -22,7 +25,7 @@ app.listen(3000, async () => {
   console.log("server running...");
   const pool = await sql.connect(sqlConfig);
 
-  const result = await pool.query("Select * from Academicos ");
+  const result = await pool.query("Select * from rol");
 
   console.log(result);
 });
