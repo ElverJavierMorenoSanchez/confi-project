@@ -1,6 +1,6 @@
 
 CREATE TABLE rol(
-  idRol INT IDENTITY PRIMARY KEY,
+  idRol INT IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   createdAt DATETIME2(0) DEFAULT GETDATE()
 );
@@ -19,7 +19,7 @@ CREATE TABLE users(
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE category(
-  categoryId INT CHECK (categoryId > 0) IDENTITY PRIMARY KEY,
+  categoryId INT CHECK (categoryId > 0) IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   createdAt DATETIME2(0) DEFAULT GETDATE(),
   createdBy VARCHAR(10) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE category(
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE subcategory(
-  subcategoryId INT CHECK (subcategoryId > 0) IDENTITY PRIMARY KEY,
+  subcategoryId INT CHECK (subcategoryId > 0) IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   categoryId INT CHECK (categoryId > 0),
   createdAt DATETIME2(0) DEFAULT GETDATE(),
@@ -43,7 +43,7 @@ CREATE TABLE subcategory(
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE state(
-  stateId INT CHECK (stateId > 0) IDENTITY PRIMARY KEY,
+  stateId INT CHECK (stateId > 0) IDENTITY(1,1) PRIMARY KEY,
   description VARCHAR(100) NOT NULL,
   createdAt DATETIME2(0) DEFAULT GETDATE(),
   createdBy VARCHAR(10) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE state(
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE availability(
-  availabilityId INT CHECK (availabilityId > 0) IDENTITY PRIMARY KEY,
+  availabilityId INT CHECK (availabilityId > 0) IDENTITY(1,1) PRIMARY KEY,
   description VARCHAR(100) NOT NULL,
   createdAt DATETIME2(0) DEFAULT GETDATE(),
   createdBy VARCHAR(10) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE availability(
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE supervisor(
-  supervisorId INT CHECK (supervisorId > 0) IDENTITY PRIMARY KEY,
+  supervisorId INT CHECK (supervisorId > 0) IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   createdAt DATETIME2(0) DEFAULT GETDATE(),
   createdBy VARCHAR(10) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE supervisor(
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE place(
-  placeId INT CHECK (placeId > 0) IDENTITY PRIMARY KEY,
+  placeId INT CHECK (placeId > 0) IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   supervisorId INT CHECK (supervisorId > 0),
   createdAt DATETIME2(0) DEFAULT GETDATE(),
@@ -89,7 +89,7 @@ CREATE TABLE place(
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE printer(
-  printerId INT CHECK (printerId > 0) IDENTITY PRIMARY KEY,
+  printerId INT CHECK (printerId > 0) IDENTITY(1,1) PRIMARY KEY,
   serialNumber VARCHAR(100) NOT NULL,
   confiLabel VARCHAR(100) NOT NULL,
   sbdName VARCHAR(100) NOT NULL,
