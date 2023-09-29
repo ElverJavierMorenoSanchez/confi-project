@@ -4,6 +4,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import availability from "./routes/general/availability.routes";
+import category from "./routes/general/category.routes";
+import state from "./routes/general/state.routes";
 
 // CONFIG SERVER //
 const app = express();
@@ -18,5 +20,7 @@ app.use(cors());
 
 // CONFIGURATIONS ROUTES //
 app.use("/api/availability", availability);
+app.use("/api/category", category);
+app.use("/api/state", state);
 
 export default app;
