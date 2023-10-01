@@ -1,86 +1,84 @@
 import { getConnection, sql } from "../../database/connection";
-import { categoriesQueries } from "../../database/generalQueries";
+import { ramQueries } from "../../database/computerQueries";
 
-export const getCategories = async (req, res) => {
+export const getRams = async (req, res) => {
   try {
     const pool = await getConnection();
-    const { recordsets } = await pool
-      .request()
-      .query(categoriesQueries.getCategories);
+    const { recordsets } = await pool.request().query(ramQueries.getRams);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const postcategory = async (req, res) => {
+export const postRam = async (req, res) => {
   try {
-    const { name, userId } = req.body;
+    const { description, userId } = req.body;
     const pool = await getConnection();
 
     const dbResponse = await pool
       .request()
-      .input("name", sql.VarChar, name)
+      .input("description", sql.VarChar, description)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.postCategory);
+      .query(ramQueries.postRam);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const getCategory = async (req, res) => {
+export const getRam = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.getCategory);
+      .input("ramId", sql.Int, id)
+      .query(ramQueries.getRam);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const putCategory = async (req, res) => {
+export const putRam = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, userId } = req.body;
+    const { description, userId } = req.body;
     const pool = await getConnection();
 
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .input("name", sql.VarChar, name)
+      .input("ramId", sql.Int, id)
+      .input("description", sql.VarChar, description)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.putCategory);
+      .query(ramQueries.putRam);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const deleteCategory = async (req, res) => {
+export const deleteRam = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.deleteCategory);
+      .input("ramId", sql.Int, id)
+      .query(ramQueries.deleteRam);
 
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };

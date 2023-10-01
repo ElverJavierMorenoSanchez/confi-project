@@ -1,0 +1,69 @@
+@api = http://localhost:3001/api/computer
+
+GET {{api}}
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "serialNumber":"12314a",
+  "cnftLabel":"12341234ASD",
+  "city":"quito",
+  "lastUser":"javi",
+  "actualUser":"javi",
+  "hostname":"javi",
+  "brand":"dell",
+  "observations":"nada",
+  "diskType":"hdd",
+  "accquisitionDate":"2023/09/30",
+  "damages":"nada",
+  "categoryId":7,
+  "subcategoryId":2,
+  "departmentId":1,
+  "modelId":1,
+  "systemId":1,
+  "proccesorId":1,
+  "ramId":1,
+  "storageId":1,
+  "officeId":1,
+  "availabilityId":6,
+  "stateId":1,
+  "userId":"1726789025"
+}
+
+###
+GET {{api}}/2
+
+###
+PUT {{api}}/2
+Content-Type: application/json
+
+{
+  "serialNumber":"12314asda",
+  "cnftLabel":"12341234asdfa",
+  "city":"quito",
+  "lastUser":"javi",
+  "actualUser":"javi",
+  "hostname":"javi",
+  "brand":"dell",
+  "observations":"nada",
+  "diskType":"hdd",
+  "accquisitionDate":"2023/09/30",
+  "damages":"nada",
+  "categoryId":7,
+  "subcategoryId":2,
+  "departmentId":1,
+  "modelId":1,
+  "systemId":1,
+  "proccesorId":1,
+  "ramId":1,
+  "storageId":1,
+  "officeId":1,
+  "availabilityId":6,
+  "stateId":1,
+  "userId":"1002290987"
+}
+
+###
+DELETE {{api}}/2

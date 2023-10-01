@@ -1,12 +1,10 @@
 import { getConnection, sql } from "../../database/connection";
-import { categoriesQueries } from "../../database/generalQueries";
+import { officeQueries } from "../../database/computerQueries";
 
-export const getCategories = async (req, res) => {
+export const getOffices = async (req, res) => {
   try {
     const pool = await getConnection();
-    const { recordsets } = await pool
-      .request()
-      .query(categoriesQueries.getCategories);
+    const { recordsets } = await pool.request().query(officeQueries.getOffices);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -15,16 +13,16 @@ export const getCategories = async (req, res) => {
   }
 };
 
-export const postcategory = async (req, res) => {
+export const postOffice = async (req, res) => {
   try {
-    const { name, userId } = req.body;
+    const { description, userId } = req.body;
     const pool = await getConnection();
 
     const dbResponse = await pool
       .request()
-      .input("name", sql.VarChar, name)
+      .input("description", sql.VarChar, description)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.postCategory);
+      .query(officeQueries.postOffice);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -33,14 +31,14 @@ export const postcategory = async (req, res) => {
   }
 };
 
-export const getCategory = async (req, res) => {
+export const getOffice = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.getCategory);
+      .input("officeId", sql.Int, id)
+      .query(officeQueries.getOffice);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -49,18 +47,18 @@ export const getCategory = async (req, res) => {
   }
 };
 
-export const putCategory = async (req, res) => {
+export const putOffice = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, userId } = req.body;
+    const { description, userId } = req.body;
     const pool = await getConnection();
 
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .input("name", sql.VarChar, name)
+      .input("officeId", sql.Int, id)
+      .input("description", sql.VarChar, description)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.putCategory);
+      .query(officeQueries.putOffice);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -69,14 +67,14 @@ export const putCategory = async (req, res) => {
   }
 };
 
-export const deleteCategory = async (req, res) => {
+export const deleteOffice = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.deleteCategory);
+      .input("officeId", sql.Int, id)
+      .query(officeQueries.deleteOffice);
 
     return res.status(200).json(dbResponse);
   } catch (error) {

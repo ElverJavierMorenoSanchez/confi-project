@@ -1,12 +1,14 @@
 import { getConnection, sql } from "../../database/connection";
-import { categoriesQueries } from "../../database/generalQueries";
+import { certificateQueries } from "../../database/computerQueries";
 
-export const getCategories = async (req, res) => {
+export const getCertificates = async (req, res) => {
   try {
+    const { computerId } = req.query;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .query(categoriesQueries.getCategories);
+      .input("computerId", sql.Int, computerId)
+      .query(certificateQueries.getCertificates);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -15,16 +17,17 @@ export const getCategories = async (req, res) => {
   }
 };
 
-export const postcategory = async (req, res) => {
+export const postCertificate = async (req, res) => {
   try {
-    const { name, userId } = req.body;
+    const { name, computerId, userId } = req.body;
     const pool = await getConnection();
 
     const dbResponse = await pool
       .request()
       .input("name", sql.VarChar, name)
+      .input("computerId", sql.Int, computerId)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.postCategory);
+      .query(certificateQueries.postCertificate);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -33,14 +36,14 @@ export const postcategory = async (req, res) => {
   }
 };
 
-export const getCategory = async (req, res) => {
+export const getCertificate = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.getCategory);
+      .input("certificateId", sql.Int, id)
+      .query(certificateQueries.getCertificate);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -49,34 +52,14 @@ export const getCategory = async (req, res) => {
   }
 };
 
-export const putCategory = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, userId } = req.body;
-    const pool = await getConnection();
-
-    const dbResponse = await pool
-      .request()
-      .input("categoryId", sql.Int, id)
-      .input("name", sql.VarChar, name)
-      .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.putCategory);
-    console.log(dbResponse);
-    return res.status(200).json(dbResponse);
-  } catch (error) {
-    console.log(error);
-    return res.status(404).json({ message: error.message });
-  }
-};
-
-export const deleteCategory = async (req, res) => {
+export const deleteCertificate = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.deleteCategory);
+      .input("certificateId", sql.Int, id)
+      .query(certificateQueries.deleteCertificate);
 
     return res.status(200).json(dbResponse);
   } catch (error) {

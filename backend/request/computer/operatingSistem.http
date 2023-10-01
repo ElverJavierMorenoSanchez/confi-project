@@ -1,0 +1,27 @@
+@api = http://localhost:3001/api/computer/operatingSystem
+
+GET {{api}}
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "name":"prueba",
+  "userId":"1726789025"
+}
+
+###
+GET {{api}}/2
+
+###
+PUT {{api}}/2
+Content-Type: application/json
+
+{
+  "name":"prueba 3",
+  "userId":"1002290987"
+}
+
+###
+DELETE {{api}}/2

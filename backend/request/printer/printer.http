@@ -1,0 +1,53 @@
+@api = http://localhost:3001/api/printer
+
+GET {{api}}
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "serialNumber":"12345678",
+  "cnftLabel":"qwertyu",
+  "sbdName":"jose",
+  "sbdCode":"1729143",
+  "sbdRoute":"asjdf",
+  "observations":"no sirve",
+  "damages":"no sirve",
+  "vacantRoute":"no",
+  "movements":"ninguno",
+  "categoryId":6,
+  "supervisorId":5,
+  "placeId":1,
+  "subcategoryId":4,
+  "availabilityId":6,
+  "stateId":1,
+  "userId":"1002290987"
+}
+
+###
+GET {{api}}/1
+
+###
+PUT {{api}}/1
+Content-Type: application/json
+
+{
+  "sbdName":"juan",
+  "sbdCode":"1729143",
+  "sbdRoute":"asjdf",
+  "observations":"no sirve",
+  "damages":"no sirve",
+  "vacantRoute":"no",
+  "movements":"ninguno",
+  "categoryId":6,
+  "supervisorId":5,
+  "placeId":1,
+  "subcategoryId":4,
+  "availabilityId":6,
+  "stateId":1,
+  "userId":"1726789025"
+}
+
+###
+DELETE {{api}}/7

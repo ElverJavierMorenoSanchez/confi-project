@@ -1,0 +1,20 @@
+@api = http://localhost:3001/api/computer/certificate
+
+GET {{api}}?computerId=4
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "name":"prueba5.pdf",
+  "computerId":4,
+  "userId":"1726789025"
+}
+
+###
+GET {{api}}/7
+
+
+###
+DELETE {{api}}/4

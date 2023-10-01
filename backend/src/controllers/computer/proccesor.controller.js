@@ -1,12 +1,12 @@
 import { getConnection, sql } from "../../database/connection";
-import { categoriesQueries } from "../../database/generalQueries";
+import { proccesorQueries } from "../../database/computerQueries";
 
-export const getCategories = async (req, res) => {
+export const getProccesors = async (req, res) => {
   try {
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .query(categoriesQueries.getCategories);
+      .query(proccesorQueries.getProccesors);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -15,7 +15,7 @@ export const getCategories = async (req, res) => {
   }
 };
 
-export const postcategory = async (req, res) => {
+export const postProccesor = async (req, res) => {
   try {
     const { name, userId } = req.body;
     const pool = await getConnection();
@@ -24,7 +24,7 @@ export const postcategory = async (req, res) => {
       .request()
       .input("name", sql.VarChar, name)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.postCategory);
+      .query(proccesorQueries.postProccesor);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -33,14 +33,14 @@ export const postcategory = async (req, res) => {
   }
 };
 
-export const getCategory = async (req, res) => {
+export const getProccesor = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.getCategory);
+      .input("proccesorId", sql.Int, id)
+      .query(proccesorQueries.getProccesor);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -49,7 +49,7 @@ export const getCategory = async (req, res) => {
   }
 };
 
-export const putCategory = async (req, res) => {
+export const putProccesor = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, userId } = req.body;
@@ -57,10 +57,10 @@ export const putCategory = async (req, res) => {
 
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
+      .input("proccesorId", sql.Int, id)
       .input("name", sql.VarChar, name)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.putCategory);
+      .query(proccesorQueries.putProccesor);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -69,14 +69,14 @@ export const putCategory = async (req, res) => {
   }
 };
 
-export const deleteCategory = async (req, res) => {
+export const deleteProccesor = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.deleteCategory);
+      .input("proccesorId", sql.Int, id)
+      .query(proccesorQueries.deleteProccesor);
 
     return res.status(200).json(dbResponse);
   } catch (error) {

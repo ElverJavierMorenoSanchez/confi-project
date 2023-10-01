@@ -1,21 +1,19 @@
 import { getConnection, sql } from "../../database/connection";
-import { categoriesQueries } from "../../database/generalQueries";
+import { modelQueries } from "../../database/computerQueries";
 
-export const getCategories = async (req, res) => {
+export const getModels = async (req, res) => {
   try {
     const pool = await getConnection();
-    const { recordsets } = await pool
-      .request()
-      .query(categoriesQueries.getCategories);
+    const { recordsets } = await pool.request().query(modelQueries.getModels);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const postcategory = async (req, res) => {
+export const postModel = async (req, res) => {
   try {
     const { name, userId } = req.body;
     const pool = await getConnection();
@@ -24,32 +22,32 @@ export const postcategory = async (req, res) => {
       .request()
       .input("name", sql.VarChar, name)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.postCategory);
+      .query(modelQueries.postModel);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const getCategory = async (req, res) => {
+export const getModel = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.getCategory);
+      .input("modelId", sql.Int, id)
+      .query(modelQueries.getModel);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const putCategory = async (req, res) => {
+export const putModel = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, userId } = req.body;
@@ -57,30 +55,30 @@ export const putCategory = async (req, res) => {
 
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
+      .input("modelId", sql.Int, id)
       .input("name", sql.VarChar, name)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.putCategory);
+      .query(modelQueries.putModel);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const deleteCategory = async (req, res) => {
+export const deleteModel = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.deleteCategory);
+      .input("modelId", sql.Int, id)
+      .query(modelQueries.deleteModel);
 
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };

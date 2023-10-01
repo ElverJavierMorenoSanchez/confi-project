@@ -1,12 +1,12 @@
 import { getConnection, sql } from "../../database/connection";
-import { printerQueries } from "../../database/printerQueries";
+import { computerQueries } from "../../database/computerQueries";
 
-export const getPrinters = async (req, res) => {
+export const getComputers = async (req, res) => {
   try {
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .query(printerQueries.getPrinters);
+      .query(computerQueries.getComputers);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -15,22 +15,29 @@ export const getPrinters = async (req, res) => {
   }
 };
 
-export const postPrinter = async (req, res) => {
+export const postComputer = async (req, res) => {
   try {
     const {
       serialNumber,
       cnftLabel,
-      sbdName,
-      sbdCode,
-      sbdRoute,
+      city,
+      lastUser,
+      actualUser,
+      hostname,
+      brand,
       observations,
+      diskType,
+      accquisitionDate,
       damages,
-      vacantRoute,
-      movements,
       categoryId,
-      supervisorId,
-      placeId,
       subcategoryId,
+      departmentId,
+      modelId,
+      systemId,
+      proccesorId,
+      ramId,
+      storageId,
+      officeId,
       availabilityId,
       stateId,
       userId,
@@ -41,21 +48,28 @@ export const postPrinter = async (req, res) => {
       .request()
       .input("serialNumber", sql.VarChar, serialNumber)
       .input("cnftLabel", sql.VarChar, cnftLabel)
-      .input("sbdName", sql.VarChar, sbdName)
-      .input("sbdCode", sql.VarChar, sbdCode)
-      .input("sbdRoute", sql.VarChar, sbdRoute)
+      .input("city", sql.VarChar, city)
+      .input("lastUser", sql.VarChar, lastUser)
+      .input("actualUser", sql.VarChar, actualUser)
+      .input("hostname", sql.VarChar, hostname)
+      .input("brand", sql.VarChar, brand)
       .input("observations", sql.VarChar, observations)
+      .input("diskType", sql.VarChar, diskType)
+      .input("accquisitionDate", sql.Date, accquisitionDate)
       .input("damages", sql.VarChar, damages)
-      .input("vacantRoute", sql.VarChar, vacantRoute)
-      .input("movements", sql.VarChar, movements)
       .input("categoryId", sql.Int, categoryId)
-      .input("supervisorId", sql.Int, supervisorId)
-      .input("placeId", sql.Int, placeId)
       .input("subcategoryId", sql.Int, subcategoryId)
+      .input("departmentId", sql.Int, departmentId)
+      .input("modelId", sql.Int, modelId)
+      .input("systemId", sql.Int, systemId)
+      .input("proccesorId", sql.Int, proccesorId)
+      .input("ramId", sql.Int, ramId)
+      .input("storageId", sql.Int, storageId)
+      .input("officeId", sql.Int, officeId)
       .input("availabilityId", sql.Int, availabilityId)
       .input("stateId", sql.Int, stateId)
       .input("userId", sql.VarChar, userId)
-      .query(printerQueries.postPrinter);
+      .query(computerQueries.postComputer);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -64,14 +78,14 @@ export const postPrinter = async (req, res) => {
   }
 };
 
-export const getPrinter = async (req, res) => {
+export const getComputer = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .input("printerId", sql.Int, id)
-      .query(printerQueries.getPrinter);
+      .input("computerId", sql.Int, id)
+      .query(computerQueries.getComputer);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -80,21 +94,30 @@ export const getPrinter = async (req, res) => {
   }
 };
 
-export const putPrinter = async (req, res) => {
+export const putComputer = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      sbdName,
-      sbdCode,
-      sbdRoute,
+      serialNumber,
+      cnftLabel,
+      city,
+      lastUser,
+      actualUser,
+      hostname,
+      brand,
       observations,
+      diskType,
+      accquisitionDate,
       damages,
-      vacantRoute,
-      movements,
       categoryId,
-      supervisorId,
-      placeId,
       subcategoryId,
+      departmentId,
+      modelId,
+      systemId,
+      proccesorId,
+      ramId,
+      storageId,
+      officeId,
       availabilityId,
       stateId,
       userId,
@@ -103,22 +126,31 @@ export const putPrinter = async (req, res) => {
 
     const dbResponse = await pool
       .request()
-      .input("sbdName", sql.VarChar, sbdName)
-      .input("sbdCode", sql.VarChar, sbdCode)
-      .input("sbdRoute", sql.VarChar, sbdRoute)
+      .input("computerId", sql.Int, id)
+      .input("serialNumber", sql.VarChar, serialNumber)
+      .input("cnftLabel", sql.VarChar, cnftLabel)
+      .input("city", sql.VarChar, city)
+      .input("lastUser", sql.VarChar, lastUser)
+      .input("actualUser", sql.VarChar, actualUser)
+      .input("hostname", sql.VarChar, hostname)
+      .input("brand", sql.VarChar, brand)
       .input("observations", sql.VarChar, observations)
+      .input("diskType", sql.VarChar, diskType)
+      .input("accquisitionDate", sql.Date, accquisitionDate)
       .input("damages", sql.VarChar, damages)
-      .input("vacantRoute", sql.VarChar, vacantRoute)
-      .input("movements", sql.VarChar, movements)
       .input("categoryId", sql.Int, categoryId)
-      .input("supervisorId", sql.Int, supervisorId)
-      .input("placeId", sql.Int, placeId)
       .input("subcategoryId", sql.Int, subcategoryId)
+      .input("departmentId", sql.Int, departmentId)
+      .input("modelId", sql.Int, modelId)
+      .input("systemId", sql.Int, systemId)
+      .input("proccesorId", sql.Int, proccesorId)
+      .input("ramId", sql.Int, ramId)
+      .input("storageId", sql.Int, storageId)
+      .input("officeId", sql.Int, officeId)
       .input("availabilityId", sql.Int, availabilityId)
       .input("stateId", sql.Int, stateId)
       .input("userId", sql.VarChar, userId)
-      .input("printerId", sql.VarChar, id)
-      .query(printerQueries.putPrinter);
+      .query(computerQueries.putComputer);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -127,14 +159,14 @@ export const putPrinter = async (req, res) => {
   }
 };
 
-export const deletePrinter = async (req, res) => {
+export const deleteComputer = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const dbResponse = await pool
       .request()
-      .input("printerId", sql.Int, id)
-      .query(printerQueries.deletePrinter);
+      .input("computerId", sql.Int, id)
+      .query(computerQueries.deleteComputer);
 
     return res.status(200).json(dbResponse);
   } catch (error) {

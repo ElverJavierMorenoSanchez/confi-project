@@ -1,0 +1,20 @@
+@api = http://localhost:3001/api/printer/certificate
+
+GET {{api}}?printerId=10
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "name":"prueba4.pdf",
+  "printerId":1,
+  "userId":"1726789025"
+}
+
+###
+GET {{api}}/1
+
+
+###
+DELETE {{api}}/1

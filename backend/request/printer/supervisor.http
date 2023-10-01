@@ -1,0 +1,27 @@
+@api = http://localhost:3001/api/printer/supervisor
+
+GET {{api}}
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "name":"prueba",
+  "userId":"1726789025"
+}
+
+###
+GET {{api}}/5
+
+###
+PUT {{api}}/5
+Content-Type: application/json
+
+{
+  "name":"prueba 3",
+  "userId":"1002290987"
+}
+
+###
+DELETE {{api}}/1

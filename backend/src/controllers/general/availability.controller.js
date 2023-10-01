@@ -1,5 +1,5 @@
 import { getConnection, sql } from "../../database/connection";
-import { availabilityQueries } from "../../database/query";
+import { availabilityQueries } from "../../database/generalQueries";
 
 export const getAvailabilities = async (req, res) => {
   try {
@@ -11,6 +11,7 @@ export const getAvailabilities = async (req, res) => {
     return res.status(200).json(recordsets[0]);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -28,6 +29,7 @@ export const postAvailability = async (req, res) => {
     return res.status(200).json(dbResponse);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -43,6 +45,7 @@ export const getAvailability = async (req, res) => {
     return res.status(200).json(recordsets[0]);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -62,6 +65,7 @@ export const putAvailability = async (req, res) => {
     return res.status(200).json(dbResponse);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -77,5 +81,6 @@ export const deleteAvailability = async (req, res) => {
     return res.status(200).json(dbResponse);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };

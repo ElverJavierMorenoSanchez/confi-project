@@ -1,0 +1,27 @@
+@api = http://localhost:3001/api/general/availability
+
+GET {{api}}
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "description":"prueba",
+  "userId":"1726789025"
+}
+
+###
+GET {{api}}/9
+
+###
+PUT {{api}}/9
+Content-Type: application/json
+
+{
+  "description":"prueba 2",
+  "userId":"1002290987"
+}
+
+###
+DELETE {{api}}/14

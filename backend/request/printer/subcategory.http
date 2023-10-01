@@ -1,0 +1,29 @@
+@api = http://localhost:3001/api/printer/subcategory
+
+GET {{api}}
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "name":"prueba",
+  "categoryId":5,
+  "userId":"1726789025"
+}
+
+###
+GET {{api}}/4
+
+###
+PUT {{api}}/4
+Content-Type: application/json
+
+{
+  "name":"BIXOLON",
+  "categoryId":6,
+  "userId":"1002290987"
+}
+
+###
+DELETE {{api}}/1

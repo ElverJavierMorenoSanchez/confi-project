@@ -1,21 +1,21 @@
 import { getConnection, sql } from "../../database/connection";
-import { categoriesQueries } from "../../database/generalQueries";
+import { departmentQueries } from "../../database/computerQueries";
 
-export const getCategories = async (req, res) => {
+export const getDepartments = async (req, res) => {
   try {
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .query(categoriesQueries.getCategories);
+      .query(departmentQueries.getDepartments);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const postcategory = async (req, res) => {
+export const postDepartment = async (req, res) => {
   try {
     const { name, userId } = req.body;
     const pool = await getConnection();
@@ -24,32 +24,32 @@ export const postcategory = async (req, res) => {
       .request()
       .input("name", sql.VarChar, name)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.postCategory);
+      .query(departmentQueries.postDepartment);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const getCategory = async (req, res) => {
+export const getDepartment = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.getCategory);
+      .input("departmentId", sql.Int, id)
+      .query(departmentQueries.getDepartment);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const putCategory = async (req, res) => {
+export const putDepartment = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, userId } = req.body;
@@ -57,30 +57,30 @@ export const putCategory = async (req, res) => {
 
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
+      .input("departmentId", sql.Int, id)
       .input("name", sql.VarChar, name)
       .input("userId", sql.VarChar, userId)
-      .query(categoriesQueries.putCategory);
+      .query(departmentQueries.putDepartment);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };
 
-export const deleteCategory = async (req, res) => {
+export const deleteDepartment = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const dbResponse = await pool
       .request()
-      .input("categoryId", sql.Int, id)
-      .query(categoriesQueries.deleteCategory);
+      .input("departmentId", sql.Int, id)
+      .query(departmentQueries.deleteDepartment);
 
     return res.status(200).json(dbResponse);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ message: error.message });
+    console.log(error);
   }
 };

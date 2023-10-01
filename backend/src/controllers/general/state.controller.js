@@ -1,5 +1,5 @@
 import { getConnection, sql } from "../../database/connection";
-import { stateQueries } from "../../database/query";
+import { stateQueries } from "../../database/generalQueries";
 
 export const getStates = async (req, res) => {
   try {
@@ -9,6 +9,7 @@ export const getStates = async (req, res) => {
     return res.status(200).json(recordsets[0]);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -26,6 +27,7 @@ export const postState = async (req, res) => {
     return res.status(200).json(dbResponse);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -41,6 +43,7 @@ export const getState = async (req, res) => {
     return res.status(200).json(recordsets[0]);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -60,6 +63,7 @@ export const putState = async (req, res) => {
     return res.status(200).json(dbResponse);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -75,5 +79,6 @@ export const deleteState = async (req, res) => {
     return res.status(200).json(dbResponse);
   } catch (error) {
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };

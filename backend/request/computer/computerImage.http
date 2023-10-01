@@ -1,0 +1,19 @@
+@api = http://localhost:3001/api/computer/image
+
+GET {{api}}?computerId=4
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+  "name":"prueba4.png",
+  "computerId":4,
+  "userId":"1726789025"
+}
+
+###
+GET {{api}}/2
+
+###
+DELETE {{api}}/4
