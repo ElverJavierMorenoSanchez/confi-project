@@ -7,8 +7,8 @@ POST {{api}}
 Content-Type: application/json
 
 {
-  "serialNumber":"12314a",
-  "cnftLabel":"12341234ASD",
+  "serialNumber":"qweqeqwer",
+  "cnftLabel":"qwerqwer",
   "city":"quito",
   "lastUser":"javi",
   "actualUser":"javi",
@@ -18,8 +18,8 @@ Content-Type: application/json
   "diskType":"hdd",
   "accquisitionDate":"2023/09/30",
   "damages":"nada",
-  "categoryId":7,
-  "subcategoryId":2,
+  "categoryId":1,
+  "subcategoryId":1,
   "departmentId":1,
   "modelId":1,
   "systemId":1,
@@ -27,7 +27,7 @@ Content-Type: application/json
   "ramId":1,
   "storageId":1,
   "officeId":1,
-  "availabilityId":6,
+  "availabilityId":1,
   "stateId":1,
   "userId":"1726789025"
 }
