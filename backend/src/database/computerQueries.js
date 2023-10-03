@@ -330,7 +330,7 @@ export const officeQueries = {
 export const computerQueries = {
   getComputers: `
     SELECT
-      computer.computerId,   
+      computer.computerId AS id,   
       computer.serialNumber,
       computer.cnftLabel,
       computer.city,
@@ -452,7 +452,7 @@ export const computerQueries = {
   `,
   getComputer: `
     SELECT
-      computer.computerId,   
+      computer.computerId AS id,   
       computer.serialNumber,
       computer.cnftLabel,
       computer.city,
