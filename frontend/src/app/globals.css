@@ -1,7 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.prueba:: {
-  color: #fe4a4a;
-}
