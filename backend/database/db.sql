@@ -1,4 +1,4 @@
-
+--------------------- GENERAL ---------------------
 CREATE TABLE rol(
   idRol INT IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
@@ -36,7 +36,6 @@ CREATE TABLE subcategory(
   FOREIGN KEY (categoryId) REFERENCES category(categoryId)
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE state(
   stateId INT CHECK (stateId > 0) IDENTITY(1,1) PRIMARY KEY,
   description VARCHAR(100) NOT NULL,
@@ -47,7 +46,6 @@ CREATE TABLE state(
   FOREIGN KEY (modifiedBy) REFERENCES users(userId)
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE availability(
   availabilityId INT CHECK (availabilityId > 0) IDENTITY(1,1) PRIMARY KEY,
   description VARCHAR(100) NOT NULL,
@@ -58,7 +56,29 @@ CREATE TABLE availability(
   FOREIGN KEY (modifiedBy) REFERENCES users(userId)
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
+CREATE TABLE brand(
+  brandId INT CHECK (brandId > 0) IDENTITY(1,1) PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  createdAt DATETIME2(0) DEFAULT GETDATE(),
+  createdBy VARCHAR(10) NOT NULL,
+  modifiedBy VARCHAR(10),
+  FOREIGN KEY (createdBy) REFERENCES users(userId),
+  FOREIGN KEY (modifiedBy) REFERENCES users(userId)
+);
+
+CREATE TABLE model(
+  modelId INT CHECK (modelId > 0) IDENTITY(1,1) PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  brandId INT CHECK (brandId > 0),
+  createdAt DATETIME2(0) DEFAULT GETDATE(),
+  createdBy VARCHAR(10) NOT NULL,
+  modifiedBy VARCHAR(10),
+  FOREIGN KEY (brandId) REFERENCES brand(brandId),
+  FOREIGN KEY (createdBy) REFERENCES users(userId),
+  FOREIGN KEY (modifiedBy) REFERENCES users(userId)
+);
+
+--------------------- PRINTERS ---------------------
 CREATE TABLE supervisor(
   supervisorId INT CHECK (supervisorId > 0) IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
@@ -69,7 +89,6 @@ CREATE TABLE supervisor(
   FOREIGN KEY (modifiedBy) REFERENCES users(userId)
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE place(
   placeId INT CHECK (placeId > 0) IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
@@ -82,7 +101,6 @@ CREATE TABLE place(
   FOREIGN KEY (supervisorId) REFERENCES supervisor(supervisorId)
 );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE printer(
   printerId INT CHECK (printerId > 0) IDENTITY(1,1) PRIMARY KEY,
   serialNumber VARCHAR(100) UNIQUE,
@@ -96,8 +114,10 @@ CREATE TABLE printer(
   movements VARCHAR(500),
 
   categoryId INT,
-  supervisorId INT, 
   subcategoryId INT CHECK (subcategoryId > 0),
+  brandId INT CHECK (brandId > 0),
+  modelId INT CHECK (modelId > 0),
+  supervisorId INT, 
   availabilityId INT CHECK (availabilityId > 0),
   stateId INT CHECK (stateId > 0),
   placeId INT CHECK (placeId > 0),
@@ -108,6 +128,8 @@ CREATE TABLE printer(
   FOREIGN KEY (modifiedBy) REFERENCES users(userId),
   FOREIGN KEY (categoryId) REFERENCES category(categoryId),
   FOREIGN KEY (supervisorId) REFERENCES supervisor(supervisorId),
+  FOREIGN KEY (brandId) REFERENCES brand(brandId),
+  FOREIGN KEY (modelId) REFERENCES model(modelId),
   FOREIGN KEY (placeId) REFERENCES place(placeId),
   FOREIGN KEY (subcategoryId) REFERENCES subcategory(subcategoryId),
   FOREIGN KEY (availabilityId) REFERENCES availability(availabilityId), 
@@ -141,16 +163,6 @@ CREATE TABLE printer_image(
 ------------------------ COMPUTADORES --------------------------
 CREATE TABLE department(
   departmentId INT CHECK (departmentId > 0) IDENTITY(1,1) PRIMARY KEY,
-  name VARCHAR(50) NOT NULL,
-  createdAt DATETIME2(0) DEFAULT GETDATE(),
-  createdBy VARCHAR(10) NOT NULL,
-  modifiedBy VARCHAR(10),
-  FOREIGN KEY (createdBy) REFERENCES users(userId),
-  FOREIGN KEY (modifiedBy) REFERENCES users(userId)
-);
-
-CREATE TABLE model(
-  modelId INT CHECK (modelId > 0) IDENTITY(1,1) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   createdAt DATETIME2(0) DEFAULT GETDATE(),
   createdBy VARCHAR(10) NOT NULL,
@@ -223,9 +235,11 @@ CREATE TABLE computer(
   diskType VARCHAR(500),
   accquisitionDate DATE,
   damages VARCHAR(500),
+
   categoryId INT,
   subcategoryId INT,
   departmentId INT,
+  brandId INT,
   modelId INT,
   systemId INT,
   proccesorId INT,
@@ -242,6 +256,7 @@ CREATE TABLE computer(
   FOREIGN KEY (categoryId) REFERENCES category(categoryId),
   FOREIGN KEY (subcategoryId) REFERENCES subcategory(subcategoryId),
   FOREIGN KEY (departmentId) REFERENCES department(departmentId),
+  FOREIGN KEY (brandId) REFERENCES brand(brandId),
   FOREIGN KEY (modelId) REFERENCES model(modelId),
   FOREIGN KEY (systemId) REFERENCES operating_system(systemId),
   FOREIGN KEY (proccesorId) REFERENCES proccesor(proccesorId),
@@ -277,4 +292,7 @@ CREATE TABLE computer_image(
   FOREIGN KEY (modifiedBy) REFERENCES users(userId)
 );
 
-
+----------------- INSERT VALUES ----------------------------
+insert into rol (name) values ('administrator');
+insert into users (userId, name, idRol, password) values ('1002290987', 'Jose', 1, '230300EJ');
+insert into users (userId, name, idRol, password) values ('1726789025', 'Javi', 1, '230300EJ');

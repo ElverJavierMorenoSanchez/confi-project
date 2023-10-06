@@ -1,4 +1,4 @@
-@api = http://localhost:3001/api/printer/subcategory
+@api = http://localhost:3001/api/general/subcategory
 
 GET {{api}}
 
@@ -7,8 +7,8 @@ POST {{api}}
 Content-Type: application/json
 
 {
-  "name":"prueba",
-  "categoryId":5,
+  "name":"LAPTOP",
+  "categoryId":1,
   "userId":"1726789025"
 }
 

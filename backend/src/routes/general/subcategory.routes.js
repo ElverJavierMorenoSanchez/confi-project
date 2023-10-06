@@ -5,7 +5,7 @@ import {
   deleteSubcategory,
   getSubcategory,
   putSubcategory,
-} from "../../controllers/printer/subcategory.controller";
+} from "../../controllers/general/subcategory.controller";
 const router = Router();
 
 router.get("/", getSubcategories);

@@ -7,7 +7,7 @@ POST {{api}}
 Content-Type: application/json
 
 {
-  "description":"prueba",
+  "description":"980GB",
   "userId":"1726789025"
 }
 

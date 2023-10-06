@@ -1,7 +1,7 @@
 export const supervisorQueries = {
   getSupervisors: `
     SELECT 
-      supervisor.supervisorId, 
+      supervisor.supervisorId as id, 
       supervisor.name,
       supervisor.createdAt,
       creator.name AS createdBy,
@@ -20,7 +20,7 @@ export const supervisorQueries = {
   `,
   getSupervisor: `
     SELECT 
-      supervisor.supervisorId, 
+      supervisor.supervisorId as id, 
       supervisor.name,
       supervisor.createdAt,
       creator.name AS createdBy,
@@ -48,7 +48,7 @@ export const supervisorQueries = {
 export const placeQueries = {
   getPlaces: `
     SELECT 
-      place.placeId, 
+      place.placeId as id, 
       place.name,
       place.supervisorId,
       supervisor.name as supervisorName,
@@ -71,7 +71,7 @@ export const placeQueries = {
   `,
   getPlace: `
     SELECT 
-      place.placeId, 
+      place.placeId as id, 
       place.name,
       place.supervisorId,
       supervisor.name as supervisorName,
@@ -100,66 +100,10 @@ export const placeQueries = {
   `,
 };
 
-export const subcategoryQueries = {
-  getSubcategories: `
-    SELECT 
-      subcategory.subcategoryId, 
-      subcategory.name,
-      subcategory.categoryId,
-      category.name as categoryName,
-      subcategory.createdAt,
-      creator.name AS createdBy,
-      creator.userId as creatorId,
-      modifier.name AS modifiedBy, 
-      modifier.userId as modifierId
-    FROM subcategory
-    LEFT JOIN 
-      category ON subcategory.categoryId = category.categoryId
-    LEFT JOIN 
-      users AS creator ON subcategory.createdBy = creator.userId 
-    LEFT JOIN 
-      users AS modifier ON subcategory.modifiedBy = modifier.userId
-    `,
-  postSubcategory: `
-    INSERT INTO subcategory (name, categoryId,createdBy) 
-    VALUES (@name, @categoryId, @userId)
-  `,
-  getSubcategory: `
-    SELECT 
-      subcategory.subcategoryId, 
-      subcategory.name,
-      subcategory.categoryId,
-      category.name as categoryName,
-      subcategory.createdAt,
-      creator.name AS createdBy,
-      creator.userId as creatorId,
-      modifier.name AS modifiedBy, 
-      modifier.userId as modifierId
-    FROM subcategory
-    LEFT JOIN 
-      category ON subcategory.categoryId = category.categoryId
-    LEFT JOIN 
-      users AS creator ON subcategory.createdBy = creator.userId 
-    LEFT JOIN 
-      users AS modifier ON subcategory.modifiedBy = modifier.userId
-    WHERE 
-      subcategory.subcategoryId = @subcategoryId
-    `,
-  putSubcategory: `
-    UPDATE subcategory 
-    SET name = @name, categoryId = @categoryId, modifiedBy = @userId 
-    WHERE subcategory.subcategoryId = @subcategoryId
-  `,
-  deleteSubcategory: `
-    DELETE FROM subcategory 
-    WHERE subcategory.subcategoryId = @subcategoryId
-  `,
-};
-
 export const printerQueries = {
   getPrinters: `
     SELECT 
-      printer.printerId, 
+      printer.printerId as id, 
       printer.serialNumber,
       printer.cnftLabel,
       printer.sbdName,
@@ -248,7 +192,7 @@ export const printerQueries = {
   `,
   getPrinter: `
     SELECT 
-      printer.printerId, 
+      printer.printerId as id, 
       printer.serialNumber,
       printer.cnftLabel,
       printer.sbdName,

@@ -1,7 +1,7 @@
 export const departmentQueries = {
   getDepartments: `
     SELECT 
-      department.departmentId, 
+      department.departmentId as id, 
       department.name,
       department.createdAt,
       creator.name AS createdBy,
@@ -20,7 +20,7 @@ export const departmentQueries = {
   `,
   getDepartment: `
     SELECT 
-      department.departmentId, 
+      department.departmentId as id, 
       department.name,
       department.createdAt,
       creator.name AS createdBy,
@@ -45,57 +45,10 @@ export const departmentQueries = {
   `,
 };
 
-export const modelQueries = {
-  getModels: `
-    SELECT 
-      model.modelId, 
-      model.name,
-      model.createdAt,
-      creator.name AS createdBy,
-      creator.userId as creatorId,
-      modifier.name AS modifiedBy, 
-      modifier.userId as modifierId
-    FROM model 
-    LEFT JOIN 
-      users AS creator ON model.createdBy = creator.userId 
-    LEFT JOIN 
-      users AS modifier ON model.modifiedBy = modifier.userId
-    `,
-  postModel: `
-    INSERT INTO model (name, createdBy) 
-    VALUES (@name, @userId)
-  `,
-  getModel: `
-    SELECT 
-      model.modelId, 
-      model.name,
-      model.createdAt,
-      creator.name AS createdBy,
-      creator.userId as creatorId,
-      modifier.name AS modifiedBy, 
-      modifier.userId as modifierId
-    FROM model 
-    LEFT JOIN 
-      users AS creator ON model.createdBy = creator.userId 
-    LEFT JOIN 
-      users AS modifier ON model.modifiedBy = modifier.userId
-    WHERE 
-      model.modelId = @modelId
-    `,
-  putModel: `
-    UPDATE model 
-    SET name = @name, modifiedBy = @userId WHERE model.modelId = @modelId
-  `,
-  deleteModel: `
-    DELETE FROM model 
-    WHERE model.modelId = @modelId
-  `,
-};
-
 export const systemQueries = {
   getSystems: `
     SELECT 
-      system.systemId, 
+      system.systemId as id, 
       system.name,
       system.createdAt,
       creator.name AS createdBy,
@@ -114,7 +67,7 @@ export const systemQueries = {
   `,
   getSystem: `
     SELECT 
-      system.systemId, 
+      system.systemId as id, 
       system.name,
       system.createdAt,
       creator.name AS createdBy,
@@ -142,7 +95,7 @@ export const systemQueries = {
 export const proccesorQueries = {
   getProccesors: `
     SELECT 
-      proccesor.proccesorId, 
+      proccesor.proccesorId as id, 
       proccesor.name,
       proccesor.createdAt,
       creator.name AS createdBy,
@@ -161,7 +114,7 @@ export const proccesorQueries = {
   `,
   getProccesor: `
     SELECT 
-      proccesor.proccesorId, 
+      proccesor.proccesorId as id, 
       proccesor.name,
       proccesor.createdAt,
       creator.name AS createdBy,
@@ -189,7 +142,7 @@ export const proccesorQueries = {
 export const ramQueries = {
   getRams: `
     SELECT 
-      ram.ramId, 
+      ram.ramId as id, 
       ram.description,
       ram.createdAt,
       creator.name AS createdBy,
@@ -208,7 +161,7 @@ export const ramQueries = {
   `,
   getRam: `
     SELECT 
-      ram.ramId, 
+      ram.ramId as id, 
       ram.description,
       ram.createdAt,
       creator.name AS createdBy,
@@ -236,7 +189,7 @@ export const ramQueries = {
 export const storageQueries = {
   getStorages: `
     SELECT 
-      storage.storageId, 
+      storage.storageId as id, 
       storage.description,
       storage.createdAt,
       creator.name AS createdBy,
@@ -255,7 +208,7 @@ export const storageQueries = {
   `,
   getStorage: `
     SELECT 
-      storage.storageId, 
+      storage.storageId as id, 
       storage.description,
       storage.createdAt,
       creator.name AS createdBy,
@@ -283,7 +236,7 @@ export const storageQueries = {
 export const officeQueries = {
   getOffices: `
     SELECT 
-      office.officeId, 
+      office.officeId as id, 
       office.description,
       office.createdAt,
       creator.name AS createdBy,
@@ -302,7 +255,7 @@ export const officeQueries = {
   `,
   getOffice: `
     SELECT 
-      office.officeId, 
+      office.officeId as id, 
       office.description,
       office.createdAt,
       creator.name AS createdBy,

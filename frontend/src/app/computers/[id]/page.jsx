@@ -1,6 +1,6 @@
 import ComputerInformation from "@/components/computer/ComputerInformation";
 import InformationPageLayout from "@/components/general/InformationPageLayout";
-import { getComputer } from "@/libs/axios/computer";
+import { getComputer } from "@/libs/axios/computer/computer";
 
 import React from "react";
 

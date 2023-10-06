@@ -1,12 +1,10 @@
 import { getConnection, sql } from "../../database/connection";
-import { subcategoryQueries } from "../../database/printerQueries";
+import { brandQueries } from "../../database/generalQueries";
 
-export const getSubcategories = async (req, res) => {
+export const getBrands = async (req, res) => {
   try {
     const pool = await getConnection();
-    const { recordsets } = await pool
-      .request()
-      .query(subcategoryQueries.getSubcategories);
+    const { recordsets } = await pool.request().query(brandQueries.getBrands);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -15,17 +13,16 @@ export const getSubcategories = async (req, res) => {
   }
 };
 
-export const postSubcategory = async (req, res) => {
+export const postBrand = async (req, res) => {
   try {
-    const { name, categoryId, userId } = req.body;
+    const { name, userId } = req.body;
     const pool = await getConnection();
 
     const dbResponse = await pool
       .request()
       .input("name", sql.VarChar, name)
-      .input("categoryId", sql.Int, categoryId)
       .input("userId", sql.VarChar, userId)
-      .query(subcategoryQueries.postSubcategory);
+      .query(brandQueries.postBrand);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -34,14 +31,14 @@ export const postSubcategory = async (req, res) => {
   }
 };
 
-export const getSubcategory = async (req, res) => {
+export const getBrand = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
-      .input("subcategoryId", sql.Int, id)
-      .query(subcategoryQueries.getSubcategory);
+      .input("brandId", sql.Int, id)
+      .query(brandQueries.getBrand);
 
     return res.status(200).json(recordsets[0]);
   } catch (error) {
@@ -50,19 +47,18 @@ export const getSubcategory = async (req, res) => {
   }
 };
 
-export const putSubcategory = async (req, res) => {
+export const putBrand = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, categoryId, userId } = req.body;
+    const { name, userId } = req.body;
     const pool = await getConnection();
 
     const dbResponse = await pool
       .request()
-      .input("subcategoryId", sql.Int, id)
+      .input("brandId", sql.Int, id)
       .input("name", sql.VarChar, name)
-      .input("categoryId", sql.Int, categoryId)
       .input("userId", sql.VarChar, userId)
-      .query(subcategoryQueries.putSubcategory);
+      .query(brandQueries.putBrand);
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
@@ -71,14 +67,14 @@ export const putSubcategory = async (req, res) => {
   }
 };
 
-export const deleteSubcategory = async (req, res) => {
+export const deleteBrand = async (req, res) => {
   try {
     const { id } = req.params;
     const pool = await getConnection();
     const dbResponse = await pool
       .request()
-      .input("subcategoryId", sql.Int, id)
-      .query(subcategoryQueries.deleteSubcategory);
+      .input("brandId", sql.Int, id)
+      .query(brandQueries.deleteBrand);
 
     return res.status(200).json(dbResponse);
   } catch (error) {

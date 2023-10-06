@@ -1,7 +1,7 @@
 export const availabilityQueries = {
   getAvailabilities: `
     SELECT 
-      availability.availabilityId, 
+      availability.availabilityId as id, 
       availability.description,
       availability.createdAt,
       creator.name AS createdBy,
@@ -20,7 +20,7 @@ export const availabilityQueries = {
   `,
   getAvailability: `
     SELECT 
-      availability.availabilityId, 
+      availability.availabilityId as id, 
       availability.description,
       availability.createdAt,
       creator.name AS createdBy,
@@ -48,7 +48,7 @@ export const availabilityQueries = {
 export const categoriesQueries = {
   getCategories: `
     SELECT 
-      category.categoryId, 
+      category.categoryId as id, 
       category.name,
       category.createdAt,
       creator.name AS createdBy,
@@ -67,7 +67,7 @@ export const categoriesQueries = {
   `,
   getCategory: `
     SELECT 
-      category.categoryId, 
+      category.categoryId as id, 
       category.name,
       category.createdAt,
       creator.name AS createdBy,
@@ -92,10 +92,190 @@ export const categoriesQueries = {
   `,
 };
 
+export const subcategoryQueries = {
+  getSubcategories: `
+    SELECT 
+      subcategory.subcategoryId as id, 
+      subcategory.name,
+      subcategory.categoryId,
+      category.name as categoryName,
+      subcategory.createdAt,
+      creator.name AS createdBy,
+      creator.userId as creatorId,
+      modifier.name AS modifiedBy, 
+      modifier.userId as modifierId
+    FROM subcategory
+    LEFT JOIN 
+      category ON subcategory.categoryId = category.categoryId
+    LEFT JOIN 
+      users AS creator ON subcategory.createdBy = creator.userId 
+    LEFT JOIN 
+      users AS modifier ON subcategory.modifiedBy = modifier.userId
+    `,
+  postSubcategory: `
+    INSERT INTO subcategory (name, categoryId,createdBy) 
+    VALUES (@name, @categoryId, @userId)
+  `,
+  getSubcategory: `
+    SELECT 
+      subcategory.subcategoryId as id, 
+      subcategory.name,
+      subcategory.categoryId,
+      category.name as categoryName,
+      subcategory.createdAt,
+      creator.name AS createdBy,
+      creator.userId as creatorId,
+      modifier.name AS modifiedBy, 
+      modifier.userId as modifierId
+    FROM subcategory
+    LEFT JOIN 
+      category ON subcategory.categoryId = category.categoryId
+    LEFT JOIN 
+      users AS creator ON subcategory.createdBy = creator.userId 
+    LEFT JOIN 
+      users AS modifier ON subcategory.modifiedBy = modifier.userId
+    WHERE 
+      subcategory.subcategoryId = @subcategoryId
+    `,
+  putSubcategory: `
+    UPDATE subcategory 
+    SET name = @name, categoryId = @categoryId, modifiedBy = @userId 
+    WHERE subcategory.subcategoryId = @subcategoryId
+  `,
+  deleteSubcategory: `
+    DELETE FROM subcategory 
+    WHERE subcategory.subcategoryId = @subcategoryId
+  `,
+};
+
+export const brandQueries = {
+  getBrands: `
+    SELECT 
+      brand.brandId as id, 
+      brand.name,
+      brand.createdAt,
+      creator.name AS createdBy,
+      creator.userId as creatorId,
+      modifier.name AS modifiedBy, 
+      modifier.userId as modifierId
+    FROM brand 
+    LEFT JOIN 
+      users AS creator ON brand.createdBy = creator.userId 
+    LEFT JOIN 
+      users AS modifier ON brand.modifiedBy = modifier.userId
+    `,
+  postBrand: `
+    INSERT INTO brand (name, createdBy) 
+    VALUES (@name, @userId)
+  `,
+  getBrand: `
+    SELECT 
+      brand.brandId as id, 
+      brand.name,
+      brand.createdAt,
+      creator.name AS createdBy,
+      creator.userId as creatorId,
+      modifier.name AS modifiedBy, 
+      modifier.userId as modifierId
+    FROM brand 
+    LEFT JOIN 
+      users AS creator ON brand.createdBy = creator.userId 
+    LEFT JOIN 
+      users AS modifier ON brand.modifiedBy = modifier.userId
+    WHERE 
+      brand.brandId = @brandId
+    `,
+  putBrand: `
+    UPDATE brand 
+    SET name = @name, modifiedBy = @userId WHERE brand.brandId = @brandId
+  `,
+  deleteBrand: `
+    DELETE FROM brand 
+    WHERE brand.brandId = @brandId
+  `,
+};
+
+export const modelQueries = {
+  getModels: `
+    SELECT 
+      model.modelId as id, 
+      model.name,
+      brand.brandId,
+      brand.name as brandName,
+      model.createdAt,
+      creator.name AS createdBy,
+      creator.userId as creatorId,
+      modifier.name AS modifiedBy, 
+      modifier.userId as modifierId
+    FROM model 
+    LEFT JOIN
+      brand ON model.brandId = brand.brandId
+    LEFT JOIN 
+      users AS creator ON model.createdBy = creator.userId 
+    LEFT JOIN 
+      users AS modifier ON model.modifiedBy = modifier.userId
+    `,
+  getModelsByBrand: `
+    SELECT 
+      model.modelId as id, 
+      model.name,
+      brand.brandId,
+      brand.name as brandName,
+      model.createdAt,
+      creator.name AS createdBy,
+      creator.userId as creatorId,
+      modifier.name AS modifiedBy, 
+      modifier.userId as modifierId
+    FROM model 
+    LEFT JOIN
+      brand ON model.brandId = brand.brandId
+    LEFT JOIN 
+      users AS creator ON model.createdBy = creator.userId 
+    LEFT JOIN 
+      users AS modifier ON model.modifiedBy = modifier.userId
+    WHERE
+      brand.brandId = @brandId
+    `,
+  postModel: `
+    INSERT INTO model (name,brandId, createdBy) 
+    VALUES (@name, @brandId, @userId)
+  `,
+  getModel: `
+    SELECT 
+      model.modelId as id, 
+      model.name,
+      brand.brandId,
+      brand.name as brandName,
+      model.createdAt,
+      creator.name AS createdBy,
+      creator.userId as creatorId,
+      modifier.name AS modifiedBy, 
+      modifier.userId as modifierId
+    FROM model 
+    LEFT JOIN
+      brand ON model.brandId = brand.brandId
+    LEFT JOIN 
+      users AS creator ON model.createdBy = creator.userId 
+    LEFT JOIN 
+      users AS modifier ON model.modifiedBy = modifier.userId
+    WHERE 
+      model.modelId = @modelId
+    `,
+  putModel: `
+    UPDATE model 
+    SET name = @name, brandId = @brandId, modifiedBy = @userId 
+    WHERE model.modelId = @modelId
+  `,
+  deleteModel: `
+    DELETE FROM model 
+    WHERE model.modelId = @modelId
+  `,
+};
+
 export const stateQueries = {
   getStates: `
     SELECT 
-      state.stateId, 
+      state.stateId as id, 
       state.description,
       state.createdAt,
       creator.name AS createdBy,
@@ -114,7 +294,7 @@ export const stateQueries = {
   `,
   getState: `
     SELECT 
-      state.stateId, 
+      state.stateId as id, 
       state.description,
       state.createdAt,
       creator.name AS createdBy,

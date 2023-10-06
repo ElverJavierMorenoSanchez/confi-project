@@ -7,7 +7,7 @@ POST {{api}}
 Content-Type: application/json
 
 {
-  "name":"prueba",
+  "name":"WINDOWS 8",
   "userId":"1726789025"
 }
 

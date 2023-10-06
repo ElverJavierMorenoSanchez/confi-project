@@ -1,5 +1,6 @@
-@api = http://localhost:3001/api/computer/model
+@api = http://localhost:3001/api/general/brand
 
+###
 GET {{api}}
 
 ###
@@ -7,7 +8,7 @@ POST {{api}}
 Content-Type: application/json
 
 {
-  "name":"prueba",
+  "name":"DELL",
   "userId":"1726789025"
 }
 
@@ -19,9 +20,10 @@ PUT {{api}}/2
 Content-Type: application/json
 
 {
-  "name":"prueba 3",
+  "name":"ASUS",
   "userId":"1002290987"
 }
 
 ###
-DELETE {{api}}/2
+DELETE {{api}}/3
+

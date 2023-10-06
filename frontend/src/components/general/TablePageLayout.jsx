@@ -4,10 +4,9 @@ import CachedIcon from "@mui/icons-material/Cached";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 import React from "react";
-import NewDataEntry from "./NewDataEntry";
 import MenuOption from "./MenuOption";
 
-const TablePageLayout = async ({ table, formComponent }) => {
+const TablePageLayout = async ({ table, newDataComponent }) => {
   return (
     <Box
       sx={{
@@ -48,7 +47,7 @@ const TablePageLayout = async ({ table, formComponent }) => {
             alignItems: "center",
           }}
         >
-          <NewDataEntry form={formComponent} />
+          {newDataComponent}
           <ButtonGroup
             variant="outlined"
             aria-label="outlined button group"
