@@ -19,3 +19,12 @@ export const getSystem = async (id) => {
     console.error(error);
   }
 };
+
+export const postSystem = async (data) => {
+  try {
+    const response = await axios.post(`${URI}`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

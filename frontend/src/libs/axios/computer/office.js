@@ -1,7 +1,7 @@
 import axios from "axios";
-const URI = "http://localhost:3001/api/computer/storage";
+const URI = "http://localhost:3001/api/computer/office";
 
-export const getStorages = async () => {
+export const getOffices = async () => {
   try {
     const response = await axios.get(`${URI}`);
     return response.data;
@@ -10,7 +10,7 @@ export const getStorages = async () => {
   }
 };
 
-export const getStorage = async (id) => {
+export const getOffice = async (id) => {
   try {
     console.log(id);
     const response = await axios.get(`${URI}/${id}`);
@@ -20,9 +20,9 @@ export const getStorage = async (id) => {
   }
 };
 
-export const postStorage = async (storage) => {
+export const postOffice = async (office) => {
   try {
-    const response = await axios.post(`${URI}`, storage);
+    const response = await axios.post(`${URI}`, office);
     return response.data;
   } catch (error) {
     console.error(error);

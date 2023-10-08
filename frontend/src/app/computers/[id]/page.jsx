@@ -10,7 +10,7 @@ const InformationPage = async ({ params }) => {
 
   return (
     <InformationPageLayout
-      infomationComponent={<ComputerInformation computer={computer} />}
+      infomationComponent={<ComputerInformation _computer={computer} />}
       category={"computers"}
     />
   );

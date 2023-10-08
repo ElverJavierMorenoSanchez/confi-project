@@ -35,7 +35,7 @@ export const postModel = async (req, res) => {
     const dbResponse = await pool
       .request()
       .input("name", sql.VarChar, name)
-      .input("brandId", sql.VarChar, brandId)
+      .input("brandId", sql.Int, brandId)
       .input("userId", sql.VarChar, userId)
       .query(modelQueries.postModel);
     console.log(dbResponse);

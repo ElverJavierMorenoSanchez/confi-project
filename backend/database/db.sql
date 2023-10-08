@@ -230,11 +230,11 @@ CREATE TABLE computer(
   lastUser VARCHAR(10) NOT NULL,
   actualUser VARCHAR(10) NOT NULL,
   hostname VARCHAR(500),
-  brand VARCHAR(500),
   observations VARCHAR(500),
   diskType VARCHAR(500),
   accquisitionDate DATE,
   damages VARCHAR(500),
+  officeLicence VARCHAR(100),
 
   categoryId INT,
   subcategoryId INT,

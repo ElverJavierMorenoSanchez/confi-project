@@ -19,3 +19,12 @@ export const getSubcategory = async (id) => {
     console.error(error);
   }
 };
+
+export const postSubcategory = async (subcategory) => {
+  try {
+    const response = await axios.post(`${URI}`, subcategory);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

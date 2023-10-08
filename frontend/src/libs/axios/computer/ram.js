@@ -19,3 +19,12 @@ export const getRam = async (id) => {
     console.error(error);
   }
 };
+
+export const postRam = async (ram) => {
+  try {
+    const response = await axios.post(`${URI}`, ram);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

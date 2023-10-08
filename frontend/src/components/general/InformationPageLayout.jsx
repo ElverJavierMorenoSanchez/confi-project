@@ -38,20 +38,7 @@ const InformationPageLayout = async ({ infomationComponent, category }) => {
           justifyContent: "center",
         }}
       >
-        <Box
-          sx={{
-            width: "100%",
-            padding: "2%",
-            border: "2px solid #aeaeae",
-            display: "flex",
-            gap: "20px",
-            flexDirection: "row",
-            alignItems: "start",
-            justifyContent: "space-evenly",
-          }}
-        >
-          {infomationComponent}
-        </Box>
+        {infomationComponent}
       </Box>
     </Box>
   );

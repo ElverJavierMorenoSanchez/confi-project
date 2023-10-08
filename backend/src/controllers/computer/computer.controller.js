@@ -3,9 +3,61 @@ import { computerQueries } from "../../database/computerQueries";
 
 export const getComputers = async (req, res) => {
   try {
+    const {
+      serialNumber,
+      cnftLabel,
+      city,
+      lastUser,
+      actualUser,
+      hostname,
+      brandId,
+      observations,
+      diskType,
+      accquisitionDate,
+      damages,
+      categoryId,
+      subcategoryId,
+      departmentId,
+      modelId,
+      systemId,
+      proccesorId,
+      ramId,
+      storageId,
+      officeId,
+      officeLicence,
+      availabilityId,
+      stateId,
+      userId,
+    } = req.query;
+
+    console.log(serialNumber || "%");
     const pool = await getConnection();
     const { recordsets } = await pool
       .request()
+      .input("serialNumber", sql.VarChar, serialNumber || "%")
+      .input("cnftLabel", sql.VarChar, cnftLabel || "%")
+      .input("city", sql.VarChar, city || "%")
+      .input("lastUser", sql.VarChar, lastUser || "%")
+      .input("actualUser", sql.VarChar, actualUser || "%")
+      .input("hostname", sql.VarChar, hostname || "%")
+      .input("observations", sql.VarChar, observations || "%")
+      .input("diskType", sql.VarChar, diskType || "%")
+      .input("officeLicence", sql.VarChar, officeLicence || "%")
+      .input("damages", sql.VarChar, damages || "%")
+      .input("userId", sql.VarChar, userId || "%")
+      .input("accquisitionDate", sql.Date, accquisitionDate || null)
+      .input("brandId", sql.Int, brandId || null)
+      .input("categoryId", sql.Int, categoryId || null)
+      .input("subcategoryId", sql.Int, subcategoryId || null)
+      .input("departmentId", sql.Int, departmentId || null)
+      .input("modelId", sql.Int, modelId || null)
+      .input("systemId", sql.Int, systemId || null)
+      .input("proccesorId", sql.Int, proccesorId || null)
+      .input("ramId", sql.Int, ramId || null)
+      .input("storageId", sql.Int, storageId || null)
+      .input("officeId", sql.Int, officeId || null)
+      .input("availabilityId", sql.Int, availabilityId || null)
+      .input("stateId", sql.Int, stateId || null)
       .query(computerQueries.getComputers);
 
     return res.status(200).json(recordsets[0]);
@@ -24,7 +76,7 @@ export const postComputer = async (req, res) => {
       lastUser,
       actualUser,
       hostname,
-      brand,
+      brandId,
       observations,
       diskType,
       accquisitionDate,
@@ -38,6 +90,7 @@ export const postComputer = async (req, res) => {
       ramId,
       storageId,
       officeId,
+      officeLicence,
       availabilityId,
       stateId,
       userId,
@@ -52,7 +105,7 @@ export const postComputer = async (req, res) => {
       .input("lastUser", sql.VarChar, lastUser)
       .input("actualUser", sql.VarChar, actualUser)
       .input("hostname", sql.VarChar, hostname)
-      .input("brand", sql.VarChar, brand)
+      .input("brandId", sql.Int, brandId)
       .input("observations", sql.VarChar, observations)
       .input("diskType", sql.VarChar, diskType)
       .input("accquisitionDate", sql.Date, accquisitionDate)
@@ -66,6 +119,7 @@ export const postComputer = async (req, res) => {
       .input("ramId", sql.Int, ramId)
       .input("storageId", sql.Int, storageId)
       .input("officeId", sql.Int, officeId)
+      .input("officeLicence", sql.VarChar, officeLicence)
       .input("availabilityId", sql.Int, availabilityId)
       .input("stateId", sql.Int, stateId)
       .input("userId", sql.VarChar, userId)
@@ -104,7 +158,7 @@ export const putComputer = async (req, res) => {
       lastUser,
       actualUser,
       hostname,
-      brand,
+      brandId,
       observations,
       diskType,
       accquisitionDate,
@@ -118,6 +172,7 @@ export const putComputer = async (req, res) => {
       ramId,
       storageId,
       officeId,
+      officeLicence,
       availabilityId,
       stateId,
       userId,
@@ -133,7 +188,7 @@ export const putComputer = async (req, res) => {
       .input("lastUser", sql.VarChar, lastUser)
       .input("actualUser", sql.VarChar, actualUser)
       .input("hostname", sql.VarChar, hostname)
-      .input("brand", sql.VarChar, brand)
+      .input("brandId", sql.Int, brandId)
       .input("observations", sql.VarChar, observations)
       .input("diskType", sql.VarChar, diskType)
       .input("accquisitionDate", sql.Date, accquisitionDate)
@@ -147,6 +202,7 @@ export const putComputer = async (req, res) => {
       .input("ramId", sql.Int, ramId)
       .input("storageId", sql.Int, storageId)
       .input("officeId", sql.Int, officeId)
+      .input("officeLicence", sql.VarChar, officeLicence)
       .input("availabilityId", sql.Int, availabilityId)
       .input("stateId", sql.Int, stateId)
       .input("userId", sql.VarChar, userId)

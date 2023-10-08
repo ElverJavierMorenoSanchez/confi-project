@@ -6,7 +6,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import React from "react";
 import MenuOption from "./MenuOption";
 
-const TablePageLayout = async ({ table, newDataComponent }) => {
+const TablePageLayout = async ({ table }) => {
   return (
     <Box
       sx={{
@@ -38,38 +38,6 @@ const TablePageLayout = async ({ table, newDataComponent }) => {
           justifyContent: "center",
         }}
       >
-        <Box
-          sx={{
-            width: "100%",
-            mb: "10px",
-            display: "flex",
-            gap: "16px",
-            alignItems: "center",
-          }}
-        >
-          {newDataComponent}
-          <ButtonGroup
-            variant="outlined"
-            aria-label="outlined button group"
-            color="inherit"
-          >
-            <Button>
-              <FilterAltIcon />
-            </Button>
-            <Button>
-              <CachedIcon />
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup
-            variant="outlined"
-            aria-label="outlined button group"
-            color="inherit"
-          >
-            <Button>
-              <FileDownloadIcon />
-            </Button>
-          </ButtonGroup>
-        </Box>
         {table}
       </Box>
     </Box>

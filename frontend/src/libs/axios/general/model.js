@@ -27,3 +27,12 @@ export const getModelsByBrand = async (id) => {
     console.error(error);
   }
 };
+
+export const postModel = async (model) => {
+  try {
+    const response = await axios.post(`${URI}`, model);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

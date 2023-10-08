@@ -19,3 +19,12 @@ export const getBrand = async (id) => {
     console.error(error);
   }
 };
+
+export const postBrand = async (brand) => {
+  try {
+    const response = await axios.post(`${URI}`, brand);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

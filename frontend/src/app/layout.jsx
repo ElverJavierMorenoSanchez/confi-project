@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={inter.className}>
         <div className="content-page-container full-reset custom-scroll-containers">
           <Navbar />

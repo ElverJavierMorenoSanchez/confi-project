@@ -19,3 +19,12 @@ export const getState = async (id) => {
     console.error(error);
   }
 };
+
+export const postState = async (state) => {
+  try {
+    const response = await axios.post(`${URI}`, state);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

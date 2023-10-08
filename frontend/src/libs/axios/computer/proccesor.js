@@ -19,3 +19,12 @@ export const getProccesor = async (id) => {
     console.error(error);
   }
 };
+
+export const postProccesor = async (proccesor) => {
+  try {
+    const response = await axios.post(`${URI}`, proccesor);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

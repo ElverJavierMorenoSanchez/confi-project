@@ -19,3 +19,12 @@ export const getDepartmenty = async (id) => {
     console.error(error);
   }
 };
+
+export const postDepartment = async (department) => {
+  try {
+    const response = await axios.post(`${URI}`, department);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

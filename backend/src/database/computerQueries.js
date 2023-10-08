@@ -290,7 +290,6 @@ export const computerQueries = {
       computer.lastUser,
       computer.actualUser,
       computer.hostname,
-      computer.brand,
       computer.observations,
       computer.diskType,
       computer.accquisitionDate,
@@ -306,6 +305,8 @@ export const computerQueries = {
       availability.description AS availabilityDescription,
       department.departmentId,
       department.name AS departmentName,
+      brand.brandId,
+      brand.name AS brandName,
       model.modelId,
       model.name AS modelName,
       operating_system.systemId,
@@ -334,6 +335,8 @@ export const computerQueries = {
       availability ON computer.availabilityId = availability.availabilityId
     LEFT JOIN
       department ON computer.departmentId = department.departmentId
+    LEFT JOIN
+      brand ON computer.brandId = brand.brandId
     LEFT JOIN
       model ON computer.modelId = model.modelId
     LEFT JOIN
@@ -350,6 +353,36 @@ export const computerQueries = {
       users AS creator ON computer.createdBy = creator.userId 
     LEFT JOIN 
       users AS modifier ON computer.modifiedBy = modifier.userId
+
+    WHERE 
+    (
+      (
+        computer.serialNumber LIKE @serialNumber AND
+        computer.cnftLabel LIKE @cnftLabel AND
+        computer.city LIKE @city AND
+        computer.lastUser LIKE @lastUser AND
+        computer.actualUser LIKE @actualUser AND
+        computer.hostname LIKE @hostname AND
+        computer.observations LIKE @observations AND
+        computer.diskType LIKE @diskType AND
+        computer.damages LIKE @damages AND
+        computer.officeLicence LIKE @officeLicence AND
+        computer.createdBy LIKE @userId AND
+        computer.brandId = ISNULL(@brandId, computer.brandId) AND
+        computer.categoryId = ISNULL(@categoryId, computer.categoryId) AND
+        computer.subcategoryId = ISNULL(@subcategoryId, computer.subcategoryId) AND
+        computer.stateId = ISNULL(@stateId, computer.stateId) AND
+        computer.availabilityId = ISNULL(@availabilityId, computer.availabilityId) AND
+        computer.departmentId = ISNULL(@departmentId, computer.departmentId) AND
+        computer.modelId = ISNULL(@modelId, computer.modelId) AND
+        computer.systemId = ISNULL(@systemId, computer.systemId) AND
+        computer.proccesorId = ISNULL(@proccesorId, computer.proccesorId) AND
+        computer.ramId = ISNULL(@ramId, computer.ramId) AND
+        computer.storageId = ISNULL(@storageId, computer.storageId) AND
+        computer.officeId = ISNULL(@officeId, computer.officeId)
+      ) 
+    )
+    ORDER BY createdAt DESC;
     `,
   postComputer: `
     INSERT INTO computer (
@@ -359,7 +392,7 @@ export const computerQueries = {
       lastUser,
       actualUser,
       hostname,
-      brand,
+      brandId,
       observations,
       diskType,
       accquisitionDate,
@@ -373,6 +406,7 @@ export const computerQueries = {
       ramId,
       storageId,
       officeId,
+      officeLicence,
       availabilityId,
       stateId,
       createdBy
@@ -384,7 +418,7 @@ export const computerQueries = {
       @lastUser,
       @actualUser,
       @hostname,
-      @brand,
+      @brandId,
       @observations,
       @diskType,
       @accquisitionDate,
@@ -398,6 +432,7 @@ export const computerQueries = {
       @ramId,
       @storageId,
       @officeId,
+      @officeLicence,
       @availabilityId,
       @stateId,
       @userId
@@ -412,12 +447,12 @@ export const computerQueries = {
       computer.lastUser,
       computer.actualUser,
       computer.hostname,
-      computer.brand,
       computer.observations,
       computer.diskType,
       computer.accquisitionDate,
       computer.damages,
-
+      computer.officeLicence,
+      
       category.categoryId,
       category.name AS categoryName,
       subcategory.subcategoryId,
@@ -428,6 +463,8 @@ export const computerQueries = {
       availability.description AS availabilityDescription,
       department.departmentId,
       department.name AS departmentName,
+      brand.brandId,
+      brand.name AS brandName,
       model.modelId,
       model.name AS modelName,
       operating_system.systemId,
@@ -456,6 +493,8 @@ export const computerQueries = {
       availability ON computer.availabilityId = availability.availabilityId
     LEFT JOIN
       department ON computer.departmentId = department.departmentId
+    LEFT JOIN
+      brand ON computer.brandId = brand.brandId
     LEFT JOIN
       model ON computer.modelId = model.modelId
     LEFT JOIN
@@ -484,7 +523,6 @@ export const computerQueries = {
       lastUser = @lastUser,
       actualUser = @actualUser,
       hostname = @hostname,
-      brand = @brand,
       observations = @observations,
       diskType = @diskType,
       accquisitionDate = @accquisitionDate,
@@ -492,12 +530,14 @@ export const computerQueries = {
       categoryId = @categoryId,
       subcategoryId = @subcategoryId,
       departmentId = @departmentId,
+      brandId = @brandId,
       modelId = @modelId,
       systemId = @systemId,
       proccesorId = @proccesorId,
       ramId = @ramId,
       storageId = @storageId,
       officeId = @officeId,
+      officeLicence = @officeLicence,
       availabilityId = @availabilityId,
       stateId = @stateId,
       modifiedBy = @userId

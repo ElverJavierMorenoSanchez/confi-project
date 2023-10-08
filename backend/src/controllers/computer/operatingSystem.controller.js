@@ -26,8 +26,8 @@ export const postSystem = async (req, res) => {
     console.log(dbResponse);
     return res.status(200).json(dbResponse);
   } catch (error) {
-    return res.status(404).json({ message: error.message });
     console.log(error);
+    return res.status(404).json({ message: error.message });
   }
 };
 

@@ -19,3 +19,12 @@ export const getAvailability = async (id) => {
     console.error(error);
   }
 };
+
+export const postAvailability = async (availability) => {
+  try {
+    const response = await axios.post(`${URI}`, availability);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
