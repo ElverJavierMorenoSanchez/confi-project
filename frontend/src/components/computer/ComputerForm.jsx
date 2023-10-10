@@ -6,6 +6,7 @@ import {
   TextField,
   Typography,
   Modal,
+  ButtonGroup,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
@@ -14,7 +15,11 @@ import SelectForm from "../general/SelectForm";
 import { useEffect, useState } from "react";
 import { getModelsByBrand } from "@/libs/axios/general/model";
 import DateInput from "../general/DateInput";
-import { postComputer, putComputer } from "@/libs/axios/computer/computer";
+import {
+  importComputers,
+  postComputer,
+  putComputer,
+} from "@/libs/axios/computer/computer";
 import BrandForm from "../general/brand/BrandForm";
 import ModelForm from "./model/ModelForm";
 import SystemForm from "./system/SystemForm";
@@ -39,6 +44,8 @@ import { getRams } from "@/libs/axios/computer/ram";
 import { getStorages } from "@/libs/axios/computer/storage";
 import { getBrands } from "@/libs/axios/general/brand";
 import { getOffices } from "@/libs/axios/computer/office";
+import OpenMenu from "../general/OpenMenu";
+import ImportModal from "../general/ImportModal";
 
 const typeDisks = [{ name: "HDD" }, { name: "SSD" }, { name: "Md2" }];
 
@@ -139,6 +146,12 @@ const ComputerForm = ({
     setModels(response);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -157,6 +170,11 @@ const ComputerForm = ({
 
     if (!editable) {
       const response = await postComputer(newComputer);
+
+      if (response.errors[0]?.message) {
+        alert(response.errors[0]?.message);
+        return;
+      }
       getComputers();
     } else {
       const response = await putComputer(computer.id, newComputer);
@@ -168,24 +186,40 @@ const ComputerForm = ({
   return (
     <>
       {filter ? (
-        <Button onClick={handleOpen}>
+        <Button onClick={handleOpen} onKeyDown={handleKeyDown}>
           <FilterAltIcon />
         </Button>
-      ) : (
+      ) : editable ? (
         <Button
           variant="outlined"
           color="success"
-          startIcon={editable ? <EditNoteIcon /> : <AddIcon />}
+          startIcon={<EditNoteIcon />}
           onClick={handleOpen}
         >
-          {editable ? "Editar" : "Nuevo"}
+          {"Editar"}
         </Button>
+      ) : (
+        <ButtonGroup variant="outlined" color="success">
+          <Button startIcon={<AddIcon />} onClick={handleOpen}>
+            {"Nuevo"}
+          </Button>
+          <OpenMenu
+            importModal={
+              <ImportModal
+                title={"computadores"}
+                postAxios={importComputers}
+                getData={getComputers}
+              />
+            }
+          />
+        </ButtonGroup>
       )}
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        onKeyDown={handleKeyDown}
       >
         <Box
           sx={{

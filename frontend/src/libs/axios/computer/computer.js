@@ -4,7 +4,6 @@ const URI = "http://localhost:3001/api/computer";
 export const getComputers = async (filter) => {
   try {
     const response = await axios.get(`${URI}`, { params: filter });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -41,6 +40,17 @@ export const putComputer = async (id, computer) => {
 export const deleteComputer = async (id) => {
   try {
     const response = await axios.delete(`${URI}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const importComputers = async (formData) => {
+  try {
+    const response = await axios.post(`${URI}/import`, formData, {
+      responseType: "blob",
+    });
     return response.data;
   } catch (error) {
     console.error(error);

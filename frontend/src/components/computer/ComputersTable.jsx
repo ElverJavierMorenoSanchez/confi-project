@@ -5,22 +5,26 @@ import { useEffect, useState } from "react";
 import ComputerForm from "./ComputerForm";
 import { Box, Button, ButtonGroup } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { getComputers } from "@/libs/axios/computer/computer";
+import ExportData from "../general/ExportData";
 
-export default function ComputersTable({ _computers }) {
-  const [computers, setComputers] = useState(_computers);
+export default function ComputersTable() {
+  const [computers, setComputers] = useState();
 
   const _getComputers = async () => setComputers(await getComputers({}));
   const handleFilter = async (_filter) => {
     setComputers(await getComputers(_filter));
   };
 
+  useEffect(() => {
+    _getComputers();
+  }, []);
+
   const columns = [
     {
       field: "serialNumber",
       headerName: "SERIE",
-      width: 200,
+      width: 130,
       renderCell: (params) => (
         <Link
           href={`/computers/${params.id}`}
@@ -32,14 +36,15 @@ export default function ComputersTable({ _computers }) {
     },
     { field: "cnftLabel", headerName: "ETIQUETA CONFITECA", width: 200 },
     { field: "actualUser", headerName: "USUARIO ACTUAL", width: 200 },
-    { field: "hostname", headerName: "HOSTNAME", width: 130 },
+    { field: "hostname", headerName: "HOSTNAME", width: 213 },
     {
       field: "availabilityDescription",
       headerName: "DISPONIBILIDAD",
       width: 180,
     },
-    { field: "modelName", headerName: "MODELO", width: 200 },
-    { field: "officeDescription", headerName: "OFFICE", width: 200 },
+    { field: "modelName", headerName: "MODELO", width: 150 },
+    { field: "officeDescription", headerName: "OFFICE", width: 150 },
+    { field: "stateDescription", headerName: "ESTADO ACTUAL", width: 150 },
   ];
 
   return (
@@ -80,14 +85,12 @@ export default function ComputersTable({ _computers }) {
           aria-label="outlined button group"
           color="inherit"
         >
-          <Button>
-            <FileDownloadIcon />
-          </Button>
+          <ExportData data={computers} />
         </ButtonGroup>
       </Box>
       <div
         style={{
-          height: 400,
+          height: 453,
           width: "100%",
         }}
       >
@@ -96,10 +99,12 @@ export default function ComputersTable({ _computers }) {
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[5, 10]}
+          pageSizeOptions={[10, 20]}
+          density="compact"
+          showCellVerticalBorder={true}
         />
       </div>
     </>

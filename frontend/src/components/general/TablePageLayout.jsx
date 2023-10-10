@@ -1,7 +1,4 @@
-import { Box, Button, ButtonGroup, Typography } from "@mui/material";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import CachedIcon from "@mui/icons-material/Cached";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { Box, Button, ButtonGroup } from "@mui/material";
 
 import React from "react";
 import MenuOption from "./MenuOption";
@@ -24,13 +21,13 @@ const TablePageLayout = async ({ table }) => {
           display: "inline-block",
         }}
       >
-        <MenuOption title={"Lista"} active={true} href={"/"} />
+        <MenuOption title={"Lista"} active={true} href={"#"} />
       </Box>
 
       <Box
         sx={{
           width: "100%",
-          padding: "2%",
+          padding: "1% 2%",
           border: "2px solid #ddd",
           display: "flex",
           flexDirection: "column",

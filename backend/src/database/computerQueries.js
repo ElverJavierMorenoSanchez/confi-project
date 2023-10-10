@@ -286,25 +286,13 @@ export const computerQueries = {
       computer.computerId AS id,   
       computer.serialNumber,
       computer.cnftLabel,
-      computer.city,
-      computer.lastUser,
-      computer.actualUser,
-      computer.hostname,
-      computer.observations,
-      computer.diskType,
-      computer.accquisitionDate,
-      computer.damages,
-
       category.categoryId,
       category.name AS categoryName,
       subcategory.subcategoryId,
       subcategory.name AS subcategoryName,
-      state.stateId,
-      state.description AS stateDescription,
-      availability.availabilityId,
-      availability.description AS availabilityDescription,
-      department.departmentId,
-      department.name AS departmentName,
+      computer.actualUser,
+      computer.lastUser,
+      computer.hostname,
       brand.brandId,
       brand.name AS brandName,
       model.modelId,
@@ -313,12 +301,25 @@ export const computerQueries = {
       operating_system.name AS systemName,
       proccesor.proccesorId,
       proccesor.name AS proccesorName,
-      ram_capacity.ramId,
-      ram_capacity.description AS ramDescription,
+      computer.diskType,
       storage_capacity.storageId,
       storage_capacity.description AS storageDescription,
+      ram_capacity.ramId,
+      ram_capacity.description AS ramDescription,
       office.officeId,
       office.description AS officeDescription,
+      computer.officeLicence,
+      computer.city,
+      department.departmentId,
+      department.name AS departmentName,
+      state.stateId,
+      state.description AS stateDescription,
+      availability.availabilityId,
+      availability.description AS availabilityDescription,
+      computer.observations,
+      computer.damages,
+      computer.accquisitionDate,
+
       computer.createdAt,
       creator.name AS createdBy,
       creator.userId as creatorId,
@@ -353,34 +354,31 @@ export const computerQueries = {
       users AS creator ON computer.createdBy = creator.userId 
     LEFT JOIN 
       users AS modifier ON computer.modifiedBy = modifier.userId
-
     WHERE 
     (
-      (
-        computer.serialNumber LIKE @serialNumber AND
-        computer.cnftLabel LIKE @cnftLabel AND
-        computer.city LIKE @city AND
-        computer.lastUser LIKE @lastUser AND
-        computer.actualUser LIKE @actualUser AND
-        computer.hostname LIKE @hostname AND
-        computer.observations LIKE @observations AND
-        computer.diskType LIKE @diskType AND
-        computer.damages LIKE @damages AND
-        computer.officeLicence LIKE @officeLicence AND
-        computer.createdBy LIKE @userId AND
-        computer.brandId = ISNULL(@brandId, computer.brandId) AND
-        computer.categoryId = ISNULL(@categoryId, computer.categoryId) AND
-        computer.subcategoryId = ISNULL(@subcategoryId, computer.subcategoryId) AND
-        computer.stateId = ISNULL(@stateId, computer.stateId) AND
-        computer.availabilityId = ISNULL(@availabilityId, computer.availabilityId) AND
-        computer.departmentId = ISNULL(@departmentId, computer.departmentId) AND
-        computer.modelId = ISNULL(@modelId, computer.modelId) AND
-        computer.systemId = ISNULL(@systemId, computer.systemId) AND
-        computer.proccesorId = ISNULL(@proccesorId, computer.proccesorId) AND
-        computer.ramId = ISNULL(@ramId, computer.ramId) AND
-        computer.storageId = ISNULL(@storageId, computer.storageId) AND
-        computer.officeId = ISNULL(@officeId, computer.officeId)
-      ) 
+      computer.serialNumber LIKE @serialNumber AND
+      (computer.cnftLabel LIKE @cnftLabel OR computer.cnftLabel IS NULL) AND
+      (computer.city LIKE @city OR computer.city IS NULL) AND
+      (computer.lastUser LIKE @lastUser OR computer.lastUser IS NULL) AND
+      (computer.actualUser LIKE @actualUser OR computer.actualUser IS NULL) AND
+      (computer.hostname LIKE @hostname OR computer.hostname IS NULL) AND
+      (computer.observations LIKE @observations OR computer.observations IS NULL) AND
+      (computer.diskType LIKE @diskType OR computer.diskType IS NULL) AND
+      (computer.damages LIKE @damages OR computer.damages IS NULL) AND
+      (computer.officeLicence LIKE @officeLicence OR computer.officeLicence IS NULL) AND
+      computer.createdBy LIKE @userId AND
+      computer.brandId = ISNULL(@brandId, computer.brandId) AND
+      computer.categoryId = ISNULL(@categoryId, computer.categoryId) AND
+      computer.subcategoryId = ISNULL(@subcategoryId, computer.subcategoryId) AND
+      computer.stateId = ISNULL(@stateId, computer.stateId) AND
+      computer.availabilityId = ISNULL(@availabilityId, computer.availabilityId) AND
+      computer.departmentId = ISNULL(@departmentId, computer.departmentId) AND
+      computer.modelId = ISNULL(@modelId, computer.modelId) AND
+      computer.systemId = ISNULL(@systemId, computer.systemId) AND
+      computer.proccesorId = ISNULL(@proccesorId, computer.proccesorId) AND
+      computer.ramId = ISNULL(@ramId, computer.ramId) AND
+      computer.storageId = ISNULL(@storageId, computer.storageId) AND
+      computer.officeId = ISNULL(@officeId, computer.officeId)
     )
     ORDER BY createdAt DESC;
     `,
@@ -541,7 +539,7 @@ export const computerQueries = {
       availabilityId = @availabilityId,
       stateId = @stateId,
       modifiedBy = @userId
-    WHERE computer.computerId = @computerId
+    WHERE computer.computerId = @computerId OR computer.serialNumber = @serialNumber
   `,
   deleteComputer: `
     DELETE FROM computer 
