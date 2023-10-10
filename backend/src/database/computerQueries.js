@@ -367,18 +367,18 @@ export const computerQueries = {
       (computer.damages LIKE @damages OR computer.damages IS NULL) AND
       (computer.officeLicence LIKE @officeLicence OR computer.officeLicence IS NULL) AND
       computer.createdBy LIKE @userId AND
-      computer.brandId = ISNULL(@brandId, computer.brandId) AND
-      computer.categoryId = ISNULL(@categoryId, computer.categoryId) AND
-      computer.subcategoryId = ISNULL(@subcategoryId, computer.subcategoryId) AND
-      computer.stateId = ISNULL(@stateId, computer.stateId) AND
-      computer.availabilityId = ISNULL(@availabilityId, computer.availabilityId) AND
-      computer.departmentId = ISNULL(@departmentId, computer.departmentId) AND
-      computer.modelId = ISNULL(@modelId, computer.modelId) AND
-      computer.systemId = ISNULL(@systemId, computer.systemId) AND
-      computer.proccesorId = ISNULL(@proccesorId, computer.proccesorId) AND
-      computer.ramId = ISNULL(@ramId, computer.ramId) AND
-      computer.storageId = ISNULL(@storageId, computer.storageId) AND
-      computer.officeId = ISNULL(@officeId, computer.officeId)
+      (computer.brandId = ISNULL(@brandId, computer.brandId) OR computer.brandId IS NULL) AND
+      (computer.categoryId = ISNULL(@categoryId, computer.categoryId) OR computer.categoryId IS NULL) AND
+      (computer.subcategoryId = ISNULL(@subcategoryId, computer.subcategoryId) OR computer.subcategoryId IS NULL) AND
+      (computer.stateId = ISNULL(@stateId, computer.stateId) OR computer.stateId IS NULL) AND
+      (computer.availabilityId = ISNULL(@availabilityId, computer.availabilityId) OR computer.availabilityId IS NULL) AND
+      (computer.departmentId = ISNULL(@departmentId, computer.departmentId) OR computer.departmentId IS NULL) AND
+      (computer.modelId = ISNULL(@modelId, computer.modelId) OR computer.modelId IS NULL) AND
+      (computer.systemId = ISNULL(@systemId, computer.systemId) OR computer.systemId IS NULL) AND
+      (computer.proccesorId = ISNULL(@proccesorId, computer.proccesorId) OR computer.proccesorId IS NULL) AND
+      (computer.ramId = ISNULL(@ramId, computer.ramId) OR computer.ramId IS NULL) AND
+      (computer.storageId = ISNULL(@storageId, computer.storageId) OR computer.storageId IS NULL) AND
+      (computer.officeId = ISNULL(@officeId, computer.officeId) OR computer.officeId IS NULL)
     )
     ORDER BY createdAt DESC;
     `,
