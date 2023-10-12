@@ -1,6 +1,5 @@
 import axios from "axios";
-const URI = "http://localhost:3001/api/computer/department";
-
+const URI = `${process.env.NEXT_PUBLIC_API_URI}/api/computer/department`;
 export const getDepartments = async () => {
   try {
     const response = await axios.get(`${URI}`);

@@ -1,5 +1,5 @@
 import axios from "axios";
-const URI = "http://localhost:3001/api/general/brand";
+const URI = `${process.env.NEXT_PUBLIC_API_URI}/api/general/brand`;
 
 export const getBrands = async () => {
   try {

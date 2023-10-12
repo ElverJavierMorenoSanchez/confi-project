@@ -1,5 +1,5 @@
 import axios from "axios";
-const URI = "http://localhost:3001/api/general/category";
+const URI = `${process.env.NEXT_PUBLIC_API_URI}/api/general/category`;
 
 export const getCategories = async () => {
   try {

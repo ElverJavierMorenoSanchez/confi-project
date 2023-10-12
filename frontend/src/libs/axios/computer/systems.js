@@ -1,5 +1,5 @@
 import axios from "axios";
-const URI = "http://localhost:3001/api/computer/operatingSystem";
+const URI = `${process.env.NEXT_PUBLIC_API_URI}/api/computer/operatingSystem`;
 
 export const getSystems = async () => {
   try {

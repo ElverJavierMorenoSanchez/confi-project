@@ -10,8 +10,7 @@ import ExportData from "../general/ExportData";
 
 export default function ComputersTable() {
   const [computers, setComputers] = useState();
-  const matchesW = useMediaQuery("(min-width:1200px)");
-  const matchesH = useMediaQuery("(min-height:600px)");
+  const matchesW = useMediaQuery("(max-width:900px)");
 
   const _getComputers = async () => setComputers(await getComputers({}));
   const handleFilter = async (_filter) => {
@@ -36,7 +35,7 @@ export default function ComputersTable() {
         </Link>
       ),
     },
-    { field: "cnftLabel", headerName: "ETIQUETA CONFITECA", width: 200 },
+    { field: "cnftLabel", headerName: "ETIQUETA CONFITECA", width: 180 },
     { field: "actualUser", headerName: "USUARIO ACTUAL", width: 200 },
     { field: "hostname", headerName: "HOSTNAME", width: 213 },
     {
@@ -50,6 +49,7 @@ export default function ComputersTable() {
       field: "stateDescription",
       headerName: "ESTADO ACTUAL",
       width: 150,
+      hid,
     },
   ];
 
@@ -96,7 +96,7 @@ export default function ComputersTable() {
       </Box>
       <div
         style={{
-          height: 453,
+          height: 400,
           width: "100%",
         }}
       >
@@ -105,14 +105,13 @@ export default function ComputersTable() {
           columns={columns}
           columnVisibilityModel={{
             stateDescription: matchesW,
-            availabilityDescription: matchesW,
           }}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
+              paginationModel: { page: 0, pageSize: 8 },
             },
           }}
-          pageSizeOptions={[10, 20]}
+          pageSizeOptions={[8, 16]}
           density="compact"
           showCellVerticalBorder={true}
         />

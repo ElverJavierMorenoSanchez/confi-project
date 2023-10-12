@@ -1,6 +1,5 @@
 import axios from "axios";
-const URI = "http://localhost:3001/api/computer/office";
-
+const URI = `${process.env.NEXT_PUBLIC_API_URI}/api/computer/office`;
 export const getOffices = async () => {
   try {
     const response = await axios.get(`${URI}`);

@@ -1,5 +1,5 @@
 import axios from "axios";
-const URI = "http://localhost:3001/api/computer/ram";
+const URI = `${process.env.NEXT_PUBLIC_API_URI}/api/computer/ram`;
 
 export const getRams = async () => {
   try {
