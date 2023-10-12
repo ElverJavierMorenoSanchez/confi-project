@@ -1,19 +1,19 @@
-import { Box, Button, ButtonGroup } from "@mui/material";
-
 import React from "react";
+import { Box, useMediaQuery } from "@mui/material";
 import MenuOption from "./MenuOption";
 
 const TablePageLayout = async ({ table }) => {
   return (
     <Box
       sx={{
-        height: "90vh",
-        padding: "0 2%",
+        overflow: "auto",
+        padding: "0 30px",
         width: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
       }}
+      className="mt-24"
     >
       <Box
         sx={{

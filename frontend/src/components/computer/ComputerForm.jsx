@@ -123,7 +123,7 @@ const ComputerForm = ({
     _getStorages();
     _getBrands();
     _getOffices();
-    getModels(brandId);
+    if (brandId) getModels(brandId);
   }, []);
 
   const handleOpen = () => setOpen(true);
@@ -148,6 +148,7 @@ const ComputerForm = ({
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
+      e.stopPropagation();
       handleSubmit(e);
     }
   };

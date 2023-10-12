@@ -7,7 +7,7 @@ const InformationPageLayout = async ({ infomationComponent, category }) => {
   return (
     <Box
       sx={{
-        m: "50px 0",
+        m: "96px 0 50px 0",
         minHeight: "90vh",
         padding: "0 2%",
         width: "100%",
@@ -23,9 +23,8 @@ const InformationPageLayout = async ({ infomationComponent, category }) => {
       >
         <MenuOption title={"Lista"} active={false} href={`/${category}`} />
         <MenuOption title={"Información"} active={true} href={"#"} />
-        <MenuOption title={"Editar"} active={false} href={"/"} />
-        <MenuOption title={"Imágenes"} active={false} href={"/"} />
-        <MenuOption title={"Actas de entrega"} active={false} href={"/"} />
+        <MenuOption title={"Imágenes"} active={false} href={"#"} />
+        <MenuOption title={"Actas de entrega"} active={false} href={"#"} />
       </Box>
       <Box
         sx={{

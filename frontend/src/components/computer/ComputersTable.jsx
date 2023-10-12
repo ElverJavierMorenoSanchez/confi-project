@@ -3,13 +3,15 @@ import { DataGrid } from "@mui/x-data-grid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ComputerForm from "./ComputerForm";
-import { Box, Button, ButtonGroup } from "@mui/material";
+import { Box, Button, ButtonGroup, useMediaQuery } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import { getComputers } from "@/libs/axios/computer/computer";
 import ExportData from "../general/ExportData";
 
 export default function ComputersTable() {
   const [computers, setComputers] = useState();
+  const matchesW = useMediaQuery("(min-width:1200px)");
+  const matchesH = useMediaQuery("(min-height:600px)");
 
   const _getComputers = async () => setComputers(await getComputers({}));
   const handleFilter = async (_filter) => {
@@ -44,7 +46,11 @@ export default function ComputersTable() {
     },
     { field: "modelName", headerName: "MODELO", width: 150 },
     { field: "officeDescription", headerName: "OFFICE", width: 150 },
-    { field: "stateDescription", headerName: "ESTADO ACTUAL", width: 150 },
+    {
+      field: "stateDescription",
+      headerName: "ESTADO ACTUAL",
+      width: 150,
+    },
   ];
 
   return (
@@ -97,6 +103,10 @@ export default function ComputersTable() {
         <DataGrid
           rows={computers || []}
           columns={columns}
+          columnVisibilityModel={{
+            stateDescription: matchesW,
+            availabilityDescription: matchesW,
+          }}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },

@@ -44,7 +44,7 @@ export default function ImportModal({ title, postAxios, getData }) {
   const [open, setOpen] = useState(false);
   const [attachment, setAttachment] = useState({});
   const [loading, setLoading] = useState(false);
-  const [importType, setImportType] = useState("");
+  const [importType, setImportType] = useState("insert");
 
   const handleOpen = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
@@ -56,7 +56,10 @@ export default function ImportModal({ title, postAxios, getData }) {
     formData.append("file", attachment);
     formData.append("userId", "1726789025");
     formData.append("importType", importType);
-
+    console.log(
+      "🚀 ~ file: ImportModal.jsx:59 ~ handleSubmit ~ importType:",
+      importType
+    );
     setLoading(true);
     const response = await postAxios(formData);
 
