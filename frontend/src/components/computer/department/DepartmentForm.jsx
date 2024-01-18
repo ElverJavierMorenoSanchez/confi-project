@@ -1,5 +1,14 @@
 "use client";
-import { postDepartment } from "@/libs/axios/computer/department";
+import ImportModal from "@/components/general/ImportModal";
+import OpenMenu from "@/components/general/OpenMenu";
+import {
+  postDepartment,
+  putDepartment,
+} from "@/libs/axios/computer/department";
+import AddIcon from "@mui/icons-material/Add";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+
 import {
   Box,
   TextField,
@@ -7,11 +16,20 @@ import {
   Button,
   MenuItem,
   Modal,
+  ButtonGroup,
 } from "@mui/material";
+
 import { useState } from "react";
 
-const DepartmentForm = ({ width, getDeparments }) => {
-  const [name, setName] = useState("");
+const DepartmentForm = ({
+  width,
+  getDepartments,
+  filter,
+  editable,
+  menuItem,
+  department,
+}) => {
+  const [name, setName] = useState(department?.name || "");
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -21,19 +39,63 @@ const DepartmentForm = ({ width, getDeparments }) => {
     setName(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    const response = await postDepartment({
-      name,
-      userId: "1726789025",
-    });
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.stopPropagation();
+      handleSubmit(e);
+    }
+  };
 
-    getDeparments();
+  const handleSubmit = async (e) => {
+    if (!editable) {
+      const response = await postDepartment({
+        name,
+        userId: "1726789025",
+      });
+    } else {
+      const response = await putDepartment({
+        id: department.id,
+        name,
+        userId: "1726789025",
+      });
+    }
+
+    getDepartments();
     handleClose();
   };
 
   return (
     <>
-      <MenuItem onClick={handleOpen}>Nuevo...</MenuItem>
+      {menuItem ? (
+        <MenuItem onClick={handleOpen}>Nuevo...</MenuItem>
+      ) : filter ? (
+        <Button onClick={handleOpen} onKeyDown={handleKeyDown}>
+          <FilterAltIcon />
+        </Button>
+      ) : editable ? (
+        <Button
+          color="success"
+          startIcon={<EditNoteIcon />}
+          onClick={handleOpen}
+        >
+          Editar
+        </Button>
+      ) : (
+        <ButtonGroup variant="outlined" color="success">
+          <Button startIcon={<AddIcon />} onClick={handleOpen}>
+            Nuevo
+          </Button>
+          <OpenMenu
+            importModal={
+              <ImportModal
+                title={"departamentos"}
+                postAxios={() => {}}
+                getData={() => {}}
+              />
+            }
+          />
+        </ButtonGroup>
+      )}
       <Modal
         open={open}
         onClose={handleClose}
@@ -70,6 +132,7 @@ const DepartmentForm = ({ width, getDeparments }) => {
             <TextField
               label="Departamento"
               variant="outlined"
+              value={name}
               onChange={handleChange}
               fullWidth
             />

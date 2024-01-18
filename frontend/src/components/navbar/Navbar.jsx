@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,14 +14,30 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import NavbarOption from "./NavbarOption";
 
 const pages = ["COMPUTADORES"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const generalOptions = [
+  { title: "Disponibilidad", href: "/general/availability" },
+  { title: "Modelo", href: "/general/model" },
+  { title: "Categoría", href: "/general/category" },
+  { title: "Subcategoría", href: "/general/subcategory" },
+  { title: "Estado", href: "/general/state" },
+];
+const computerOptions = [
+  { title: "Departamento", href: "/computers/department" },
+  { title: "Office", href: "/computers/office" },
+  { title: "Sistema Operativo", href: "/computers/os" },
+  { title: "Procesador", href: "/computers/proccesor" },
+  { title: "MemoriaRam", href: "/computers/ram" },
+  { title: "Almacenamiento", href: "/computers/storage" },
+];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [anchorElGeneral, setAnchorElGeneral] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElGeneral, setAnchorElGeneral] = useState(null);
+  const [anchorElComputers, setAnchorElComputers] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -32,16 +48,20 @@ function ResponsiveAppBar() {
   const handleOpenGeneralMenu = (event) => {
     setAnchorElGeneral(event.currentTarget);
   };
-
+  const handleOpenComputersMenu = (event) => {
+    setAnchorElComputers(event.currentTarget);
+  };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
   const handleCloseGeneralMenu = () => {
     setAnchorElGeneral(null);
+  };
+  const handleCloseComputersMenu = () => {
+    setAnchorElComputers(null);
   };
 
   return (
@@ -96,14 +116,20 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem onClick={handleOpenUserMenu}>
-                <Typography textAlign="center">GENERAL</Typography>
-              </MenuItem>
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <NavbarOption
+                title="COMPUTADORES"
+                options={computerOptions}
+                handleClick={handleOpenComputersMenu}
+                anchorEl={anchorElComputers}
+                handleClose={handleCloseComputersMenu}
+              />
+              <NavbarOption
+                title="GENERAL"
+                options={generalOptions}
+                handleClick={handleOpenGeneralMenu}
+                anchorEl={anchorElGeneral}
+                handleClose={handleCloseGeneralMenu}
+              />
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -126,45 +152,21 @@ function ResponsiveAppBar() {
             CONFITECA
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-            <Button
-              onClick={handleOpenGeneralMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              GENERAL
-            </Button>
-            <Box sx={{ flexGrow: 0 }}>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-general"
-                anchorEl={anchorElGeneral}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElGeneral)}
-                onClose={handleCloseGeneralMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseGeneralMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+            <NavbarOption
+              title="COMPUTADORES"
+              options={computerOptions}
+              handleClick={handleOpenComputersMenu}
+              anchorEl={anchorElComputers}
+              handleClose={handleCloseComputersMenu}
+            />
+            <NavbarOption
+              title="GENERAL"
+              options={generalOptions}
+              handleClick={handleOpenGeneralMenu}
+              anchorEl={anchorElGeneral}
+              handleClose={handleCloseGeneralMenu}
+            />
+            <NavbarOption title="PRUEBA" handleClick={() => {}} />
           </Box>
         </Toolbar>
       </Container>

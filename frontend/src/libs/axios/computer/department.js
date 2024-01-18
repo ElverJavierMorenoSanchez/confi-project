@@ -27,3 +27,12 @@ export const postDepartment = async (department) => {
     console.error(error);
   }
 };
+
+export const putDepartment = async (department) => {
+  try {
+    const response = await axios.put(`${URI}/${department.id}`, department);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

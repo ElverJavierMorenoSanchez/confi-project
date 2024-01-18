@@ -197,12 +197,12 @@ const ComputerForm = ({
           startIcon={<EditNoteIcon />}
           onClick={handleOpen}
         >
-          {"Editar"}
+          Editar
         </Button>
       ) : (
         <ButtonGroup variant="outlined" color="success">
           <Button startIcon={<AddIcon />} onClick={handleOpen}>
-            {"Nuevo"}
+            Nuevo
           </Button>
           <OpenMenu
             importModal={
@@ -363,7 +363,8 @@ const ComputerForm = ({
                 newData={
                   <DepartmentForm
                     width={"40%"}
-                    getDeparments={_getDepartments}
+                    getDepartments={_getDepartments}
+                    menuItem={true}
                   />
                 }
               />

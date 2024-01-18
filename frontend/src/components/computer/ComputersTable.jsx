@@ -49,7 +49,6 @@ export default function ComputersTable() {
       field: "stateDescription",
       headerName: "ESTADO ACTUAL",
       width: 150,
-      hid,
     },
   ];
 

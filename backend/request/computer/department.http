@@ -1,4 +1,4 @@
-@api = http://localhost:3001/api/computer/department
+@api = http://localhost:3002/api/computer/department
 
 GET {{api}}
 
