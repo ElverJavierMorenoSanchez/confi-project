@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'git --version'
+                sh 'ls -la'
+                sh 'git clone https://github.com/ElverJavierMorenoSanchez/confi-project.git'
+                sh 'ls -la'
             }
         }
         stage('Test 2') {
