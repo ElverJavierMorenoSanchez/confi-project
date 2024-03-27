@@ -4,14 +4,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                checkout([
-                    $class: 'GitSCM', 
-                    branches: [[name: '*/main']], 
-                    doGenerateSubmoduleConfigurations: false, 
-                    extensions: [[$class: 'CleanCheckout']], 
-                    submoduleCfg: [], 
-                    userRemoteConfigs: [[credentialsId: 'GITHUB_CREDENTIALS', url: apl_ms_url_git]]
-                ])
+                sh 'git --version'
             }
         }
         stage('Test 2') {
