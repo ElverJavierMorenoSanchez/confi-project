@@ -2,11 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Test') {
-            steps {
-                sh 'ls -la'
-                sh 'git clone https://github.com/ElverJavierMorenoSanchez/confi-project.git'
-                sh 'ls -la'
+        stage('GIT CLONE') {
+            script {
+                try {
+                    rm -rf test_main/
+                    git branch: 'main', url: 'https://github.com/ElverJavierMorenoSanchez/confi-project.git'
+                } catch (exc) {
+                    println 'No se pudo clonar el repositorio'
+                }
             }
         }
         stage('Test 2') {
