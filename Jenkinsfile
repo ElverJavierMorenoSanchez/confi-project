@@ -3,12 +3,6 @@ pipeline {
 
     stages {
         stage('GIT CLONE') {
-            agent {
-                ssh {
-                    hostName '20.90.147.49'
-                    credentialsId 'ssh_access'
-                }
-            }
             steps {
                 sshagent(['ssh_access']) {
                     sh """
