@@ -14,6 +14,7 @@ pipeline {
                     try {
                         sh "rm -rf test_main/"
                         git branch: 'main', url: 'https://github.com/ElverJavierMorenoSanchez/confi-project.git'
+                        sh "pwd"
                     } catch (exc) {
                         println 'No se pudo clonar el repositorio'
                     }
