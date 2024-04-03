@@ -1,23 +1,21 @@
+def remote-[:]
+remote.name = "ejmoreno23"
+remote.host = "20.90.147.49"
+remote.allowAnyHosts = true 
+
 pipeline {
     agent any
-
+    environment {
+        VM_CREDENTIALS = credentials('vm_access')
+    }
     stages {
         stage('GIT CLONE') {
             steps {
-                sshagent(['ssh_access']) {
-                    sh """
-                        ssh ejmoreno23@20.90.147.49 command echo "Ejecutando comandos en la máquina remota"
-                    """
-                }
                 script {
-                    try {
-                        sh "rm -rf test_main/"
-                        git branch: 'main', url: 'https://github.com/ElverJavierMorenoSanchez/confi-project.git'
-                        sh "pwd"
-                    } catch (exc) {
-                        println 'No se pudo clonar el repositorio'
-                    }
+                    remote.user=VM_CREDENTIALS_USR
+                    remote.password=VM_CREDENTIALS_PSW
                 }
+                sshCommand(remote: remote, command: 'pwd')
             }
 
         }
