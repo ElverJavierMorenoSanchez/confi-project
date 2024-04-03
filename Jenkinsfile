@@ -5,7 +5,7 @@ pipeline {
         stage('GIT CLONE') {
             script {
                 try {
-                    rm -rf test_main/
+                    sh "rm -rf test_main/"
                     git branch: 'main', url: 'https://github.com/ElverJavierMorenoSanchez/confi-project.git'
                 } catch (exc) {
                     println 'No se pudo clonar el repositorio'
