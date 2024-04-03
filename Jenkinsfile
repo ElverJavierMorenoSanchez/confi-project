@@ -10,6 +10,11 @@ pipeline {
                 }
             }
             steps {
+                sshagent(['ssh_access']) {
+                    sh """
+                        ssh ejmoreno23@20.90.147.49 command echo "Ejecutando comandos en la máquina remota"
+                    """
+                }
                 script {
                     try {
                         sh "rm -rf test_main/"
