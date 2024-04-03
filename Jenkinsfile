@@ -3,12 +3,14 @@ pipeline {
 
     stages {
         stage('GIT CLONE') {
-            script {
-                try {
-                    sh "rm -rf test_main/"
-                    git branch: 'main', url: 'https://github.com/ElverJavierMorenoSanchez/confi-project.git'
-                } catch (exc) {
-                    println 'No se pudo clonar el repositorio'
+            steps {
+                script {
+                    try {
+                        sh "rm -rf test_main/"
+                        git branch: 'main', url: 'https://github.com/ElverJavierMorenoSanchez/confi-project.git'
+                    } catch (exc) {
+                        println 'No se pudo clonar el repositorio'
+                    }
                 }
             }
         }
