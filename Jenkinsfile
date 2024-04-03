@@ -1,4 +1,4 @@
-def remote-[:]
+def remote=[:]
 remote.name = "ejmoreno23"
 remote.host = "20.90.147.49"
 remote.allowAnyHosts = true 
