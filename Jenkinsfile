@@ -3,11 +3,15 @@ pipeline {
 
     stages {
         stage('GIT CLONE') {
+            agent {
+                ssh {
+                    hostName '20.90.147.49'
+                    credentialsId 'ssh_access'
+                }
+            }
             steps {
                 script {
                     try {
-                        isSuccess = sh(script: "ssh -t ejmoreno23@20.90.147.49", returnStatus:true)
-                        println "isSuccess: ${isSuccess}"
                         sh "rm -rf test_main/"
                         git branch: 'main', url: 'https://github.com/ElverJavierMorenoSanchez/confi-project.git'
                     } catch (exc) {
@@ -15,7 +19,7 @@ pipeline {
                     }
                 }
             }
-            
+
         }
         stage('Test 2') {
             steps {
