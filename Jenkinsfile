@@ -6,14 +6,14 @@ remote.allowAnyHosts = true
 pipeline {
     agent any
     environment {
-        VM_CREDENTIALS = credentials('ssh_access')
+        SSH_ACCESS_CREDS = credentials('ssh_access')
     }
     stages {
         stage('GIT CLONE') {
             steps {
                 script {
-                    remote.user=VM_CREDENTIALS_USR
-                    remote.password=VM_CREDENTIALS_PSW
+                    remote.user=env.SSH_ACCESS_CREDS_USR
+                    remote.password=env.SSH_ACCESS_CREDS_PSW
                 }
                 sshCommand(remote: remote, command: 'pwd')
             }
