@@ -6,7 +6,7 @@ remote.allowAnyHosts = true
 pipeline {
     agent any
     environment {
-        VM_CREDENTIALS = credentials('vm_access')
+        VM_CREDENTIALS = credentials('ssh_access')
     }
     stages {
         stage('GIT CLONE') {
