@@ -7,6 +7,7 @@ pipeline {
     agent any
     environment {
         SSH_ACCESS_CREDS = credentials('vm_access')
+        
     }
     stages {
         stage('GIT CLONE') {
