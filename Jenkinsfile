@@ -7,17 +7,17 @@ pipeline {
     agent any
     environment {
         SSH_ACCESS_CREDS = credentials('vm_access')
-        
+
     }
     stages {
         stage('GIT CLONE') {
             steps {
                 script {
-                    //remote.user=env.SSH_ACCESS_CREDS_USR
-                    //remote.password=env.SSH_ACCESS_CREDS_PSW
-                    sh "node -v"
+                    remote.user=env.SSH_ACCESS_CREDS_USR
+                    remote.password=env.SSH_ACCESS_CREDS_PSW
+                    //sh "/usr/bin/node -v"
                 }
-                //sshCommand(remote: remote, command: 'pwd')
+                sshCommand(remote: remote, command: 'pwd')
             }
 
         }
