@@ -15,7 +15,7 @@ pipeline {
                 script {
                     //remote.user=env.SSH_ACCESS_CREDS_USR
                     //remote.password=env.SSH_ACCESS_CREDS_PSW
-                    sh "/usr/bin/node -v"
+                    sh "node -v"
                 }
                 //sshCommand(remote: remote, command: 'node -v')
             }
