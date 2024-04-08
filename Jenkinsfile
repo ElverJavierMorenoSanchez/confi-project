@@ -17,7 +17,7 @@ pipeline {
                     remote.password=env.SSH_ACCESS_CREDS_PSW
                     //sh "/usr/bin/node -v"
                 }
-                sshCommand(remote: remote, command: 'pwd')
+                sshCommand(remote: remote, command: 'node -v')
             }
 
         }
