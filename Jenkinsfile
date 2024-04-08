@@ -13,13 +13,12 @@ pipeline {
         stage('GIT CLONE') {
             steps {
                 script {
-                    remote.user=env.SSH_ACCESS_CREDS_USR
-                    remote.password=env.SSH_ACCESS_CREDS_PSW
-                    //sh "/usr/bin/node -v"
+                    //remote.user=env.SSH_ACCESS_CREDS_USR
+                    //remote.password=env.SSH_ACCESS_CREDS_PSW
+                    sh "/usr/bin/node -v"
                 }
-                sshCommand(remote: remote, command: 'node -v')
+                //sshCommand(remote: remote, command: 'node -v')
             }
-
         }
         stage('Test 2') {
             steps {
